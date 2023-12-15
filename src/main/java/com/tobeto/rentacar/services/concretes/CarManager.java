@@ -34,6 +34,12 @@ public class CarManager implements CarService {
 
     @Override
     public void add(AddCarRequest addCarRequest) {
+        addCarRequest.setPlateNumber(addCarRequest.getPlateNumber().replaceAll("\s", "").toUpperCase());
+
+        if(carRepository.existsByPlateNumber(addCarRequest.getPlateNumber())){
+
+            throw new RuntimeException("Aynı plaka tekrar girilemez");
+        }
         Car car=this.modelMapperService.forRequest().map(addCarRequest,Car.class);
         this.carRepository.save(car);
 
