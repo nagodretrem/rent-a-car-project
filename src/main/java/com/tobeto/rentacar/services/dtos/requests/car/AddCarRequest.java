@@ -31,11 +31,11 @@ public class AddCarRequest {
 
     @Positive(message = "Model_id 0'dan küçük olamaz")
     @NotNull(message = "Model_id alanı boş geçilemez")
-    private int model_id;
+    private int modelId;
 
     @Positive(message = "Color_id 0'dan küçük olamaz")
     @NotNull(message = "Color_id alanı boş geçilemez")
-    private int color_id;
+    private int colorId;
 
 
 

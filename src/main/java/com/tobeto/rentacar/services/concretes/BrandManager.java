@@ -38,6 +38,10 @@ public class BrandManager implements BrandService {
 
     @Override
     public void add(AddBrandRequest addBrandRequest) {
+        if (brandRepository.existsByName(addBrandRequest.getName()))
+        {
+            throw new RuntimeException("Ayni isimle 2 marka eklenemez!");
+        }
         Brand brand=this.modelMapperService.forRequest().map(addBrandRequest,Brand.class);
         this.brandRepository.save(brand);
 

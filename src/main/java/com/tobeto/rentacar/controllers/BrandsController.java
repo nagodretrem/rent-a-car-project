@@ -5,6 +5,7 @@ import com.tobeto.rentacar.services.dtos.requests.brand.AddBrandRequest;
 import com.tobeto.rentacar.services.dtos.requests.brand.UpdateBrandRequest;
 import com.tobeto.rentacar.services.dtos.responses.brand.GetBrandListResponse;
 import com.tobeto.rentacar.services.dtos.responses.brand.GetBrandResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,12 +28,12 @@ public class BrandsController {
     }
 
     @PostMapping()
-    public void add(@RequestBody AddBrandRequest addBrandRequest){
+    public void add(@RequestBody @Valid AddBrandRequest addBrandRequest){
         this.brandService.add(addBrandRequest);
     }
 
     @PutMapping()
-    public void update(@RequestBody UpdateBrandRequest updateBrandRequest){
+    public void update(@RequestBody @Valid UpdateBrandRequest updateBrandRequest){
         this.brandService.update(updateBrandRequest);
     }
 

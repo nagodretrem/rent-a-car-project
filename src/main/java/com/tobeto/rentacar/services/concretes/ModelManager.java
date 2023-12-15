@@ -38,10 +38,12 @@ public class ModelManager implements ModelService {
 
     @Override
     public void add(AddModelRequest addModelRequest) {
+        if(modelRepository.existsByName(addModelRequest.getName()))
+        {
+            throw new RuntimeException("Ayni isimde 2 model eklenemez");
+        }
         Model model=this.modelMapperService.forRequest().map(addModelRequest,Model.class);
         this.modelRepository.save(model);
-
-
     }
 
     @Override

@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateCarRequest {
 
+    @NotNull(message = "Bu alan bos birakilamaz!")
+    @Min(value = 1)
     private int id;
 
     @NotBlank(message = "Plate alanı boş geçilemez")

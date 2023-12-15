@@ -5,6 +5,7 @@ import com.tobeto.rentacar.services.dtos.requests.model.AddModelRequest;
 import com.tobeto.rentacar.services.dtos.requests.model.UpdateModelRequest;
 import com.tobeto.rentacar.services.dtos.responses.model.GetModelListResponse;
 import com.tobeto.rentacar.services.dtos.responses.model.GetModelResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +26,12 @@ public class ModelsController {
         return modelService.getById(id);
     }
     @PostMapping()
-    public void add(@RequestBody AddModelRequest addModelRequest){
+    public void add(@RequestBody @Valid AddModelRequest addModelRequest){
         this.modelService.add(addModelRequest);
     }
 
     @PutMapping()
-    public void update(@RequestBody UpdateModelRequest updateModelRequest){
+    public void update(@RequestBody @Valid UpdateModelRequest updateModelRequest){
         this.modelService.update(updateModelRequest);
     }
 

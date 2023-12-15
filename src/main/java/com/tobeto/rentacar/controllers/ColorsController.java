@@ -6,6 +6,7 @@ import com.tobeto.rentacar.services.dtos.requests.color.AddColorRequest;
 import com.tobeto.rentacar.services.dtos.requests.color.UpdateColorRequest;
 import com.tobeto.rentacar.services.dtos.responses.color.GetColorListResponse;
 import com.tobeto.rentacar.services.dtos.responses.color.GetColorResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,11 +27,11 @@ public class ColorsController {
         return colorService.getById(id);
     }
     @PostMapping()
-    public void add(@RequestBody AddColorRequest addColorRequest){
+    public void add(@RequestBody @Valid AddColorRequest addColorRequest){
         this.colorService.add(addColorRequest);
     }
     @PutMapping()
-    public void update(@RequestBody UpdateColorRequest updateColorRequest){
+    public void update(@RequestBody @Valid UpdateColorRequest updateColorRequest){
         this.colorService.update(updateColorRequest);
     }
     @DeleteMapping({"/{id}"})
