@@ -45,28 +45,24 @@ public class RentalManager implements RentalService {
 
     @Override
     public void add(AddRentalRequest addRentalRequest) {
+        Long totalDay = ChronoUnit.DAYS.between(addRentalRequest.getStartDate(),addRentalRequest.getEndDate());
+
         if (addRentalRequest.getEndDate().isBefore(addRentalRequest.getStartDate())) {
             throw new RuntimeException("Bitiş tarihi başlangıç tarihinden daha geçmiş bir tarih olamaz.");
         }
-        if (ChronoUnit.DAYS.between(addRentalRequest.getStartDate(),addRentalRequest.getEndDate())<26){
+        if (totalDay>25){
             throw new RuntimeException("Bir araç maksimum 25 gün kiralanabilir!");
         }
-       if (!rentalRepository.existsByCarId(addRentalRequest.getCarId())){
-           throw new RuntimeException("Sistemde böyle bir Car_id bulunamadı.");
-       }
-       if (!rentalRepository.existsByCustomerId(addRentalRequest.getCustomerId())){
-           throw new RuntimeException("Sistemde böyle bir Customer_id bulunamadı.");
 
-       }
-        if (!rentalRepository.existsByEmployeeId(addRentalRequest.getEmployeeId())){
-            throw new RuntimeException("Sistemde böyle bir Employee_id bulunamadı.");
-        }
 
             Rental rental=this.modelMapperService.forRequest().map(addRentalRequest,Rental.class);
-        rental.setStartKilometer(carService.getById(addRentalRequest.getCarId()).getKilometer());
-        rental.setTotalPrice(carService.getById(addRentalRequest.getCarId()).getDailyPrice()*
-                (ChronoUnit.DAYS.between(addRentalRequest.getStartDate(),addRentalRequest.getEndDate())));
+       rental.setStartKilometer(carService.getById(addRentalRequest.getCarId()).getKilometer());
+        rental.setTotalPrice(carService.getById(addRentalRequest.getCarId()).
+                getDailyPrice()*totalDay.doubleValue());
         this.rentalRepository.save(rental);
+
+
+
 
     }
 

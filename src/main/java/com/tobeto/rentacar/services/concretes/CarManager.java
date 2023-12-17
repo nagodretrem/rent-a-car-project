@@ -40,12 +40,7 @@ public class CarManager implements CarService {
 
             throw new RuntimeException("Aynı plaka tekrar girilemez");
         }
-        if(!carRepository.existsByColorId(addCarRequest.getColorId())){
-            throw new RuntimeException("Bu Color_id sistemde bulunmamaktadır");
-        }
-        if(!carRepository.existsByModelId(addCarRequest.getModelId())){
-            throw new RuntimeException("Bu Model_id sistemde bulunmamaktadır");
-        }
+
         Car car=this.modelMapperService.forRequest().map(addCarRequest,Car.class);
         this.carRepository.save(car);
 
