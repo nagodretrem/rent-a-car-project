@@ -3,6 +3,7 @@ package com.tobeto.rentacar.services.concretes;
 import com.tobeto.rentacar.core.utilities.mappers.ModelMapperService;
 import com.tobeto.rentacar.entities.Rental;
 import com.tobeto.rentacar.repositories.RentalRepository;
+import com.tobeto.rentacar.services.abstracts.CarService;
 import com.tobeto.rentacar.services.abstracts.RentalService;
 import com.tobeto.rentacar.services.dtos.requests.rental.AddRentalRequest;
 import com.tobeto.rentacar.services.dtos.requests.rental.UpdateRentalRequest;
@@ -11,6 +12,7 @@ import com.tobeto.rentacar.services.dtos.responses.rental.GetRentalResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 public class RentalManager implements RentalService {
 
     private final RentalRepository rentalRepository;
+    private final CarService carService;
 
     private ModelMapperService modelMapperService;
 
@@ -42,8 +45,29 @@ public class RentalManager implements RentalService {
 
     @Override
     public void add(AddRentalRequest addRentalRequest) {
-        Rental rental=this.modelMapperService.forRequest().map(addRentalRequest,Rental.class);
+        if (addRentalRequest.getEndDate().isBefore(addRentalRequest.getStartDate())) {
+            throw new RuntimeException("Bitiş tarihi başlangıç tarihinden daha geçmiş bir tarih olamaz.");
+        }
+        if (ChronoUnit.DAYS.between(addRentalRequest.getStartDate(),addRentalRequest.getEndDate())<26){
+            throw new RuntimeException("Bir araç maksimum 25 gün kiralanabilir!");
+        }
+       if (!rentalRepository.existsByCarId(addRentalRequest.getCarId())){
+           throw new RuntimeException("Sistemde böyle bir Car_id bulunamadı.");
+       }
+       if (!rentalRepository.existsByCustomerId(addRentalRequest.getCustomerId())){
+           throw new RuntimeException("Sistemde böyle bir Customer_id bulunamadı.");
+
+       }
+        if (!rentalRepository.existsByEmployeeId(addRentalRequest.getEmployeeId())){
+            throw new RuntimeException("Sistemde böyle bir Employee_id bulunamadı.");
+        }
+
+            Rental rental=this.modelMapperService.forRequest().map(addRentalRequest,Rental.class);
+        rental.setStartKilometer(carService.getById(addRentalRequest.getCarId()).getKilometer());
+        rental.setTotalPrice(carService.getById(addRentalRequest.getCarId()).getDailyPrice()*
+                (ChronoUnit.DAYS.between(addRentalRequest.getStartDate(),addRentalRequest.getEndDate())));
         this.rentalRepository.save(rental);
+
     }
 
     @Override

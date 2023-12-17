@@ -42,6 +42,10 @@ public class ModelManager implements ModelService {
         {
             throw new RuntimeException("Ayni isimde 2 model eklenemez");
         }
+        if (!modelRepository.existsByBrandId(addModelRequest.getBrandId())){
+            throw new RuntimeException("Sistemde böyle bir brand_id bulunmamaktadır.");
+        }
+
         Model model=this.modelMapperService.forRequest().map(addModelRequest,Model.class);
         this.modelRepository.save(model);
     }

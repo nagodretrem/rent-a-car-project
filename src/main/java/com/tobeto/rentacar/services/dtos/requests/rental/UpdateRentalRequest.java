@@ -19,7 +19,7 @@ public class UpdateRentalRequest {
     @NotNull(message = "Bu alan bos birakilamaz!")
     private LocalDate endDate;
     @NotNull(message = "Bu alan bos birakilamaz!")
-    private int kilometer;
+    private int startKilometer;
     @NotNull(message = "Bu alan bos birakilamaz!")
     private double totalPrice;
     @NotNull(message = "Bu alan bos birakilamaz!")
@@ -30,5 +30,7 @@ public class UpdateRentalRequest {
     private int customerId;
     @NotNull(message = "Bu alan bos birakilamaz!")
     private int employeeId;
+    private LocalDate returnDate;
+    private int endKilometer;
 
 }
