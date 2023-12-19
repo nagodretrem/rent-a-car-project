@@ -58,12 +58,24 @@ public class RentalManager implements RentalService {
         rental.setTotalPrice(rentalBusinessRules.calculateTotalPrice(car.getDailyPrice(),
                 addRentalRequest.getDiscount(), addRentalRequest.getStartDate(), addRentalRequest.getEndDate()));
         rental.setStartKilometer(car.getKilometer());
+
         this.rentalRepository.save(rental);
     }
 
     @Override
     public void update(UpdateRentalRequest updateRentalRequest) {
+        rentalBusinessRules.checkIfCarIdNotExists(updateRentalRequest.getCarId());
+        rentalBusinessRules.checkIfCustomerIdNotExists(updateRentalRequest.getCustomerId());
+        rentalBusinessRules.checkIfEmployeeIdNotExists(updateRentalRequest.getEmployeeId());
+        rentalBusinessRules.checkIfStartDateAfterBeforeDate(updateRentalRequest.getStartDate(),updateRentalRequest.getEndDate());
+        rentalBusinessRules.checkIfMaxRentalDate(updateRentalRequest.getStartDate(),updateRentalRequest.getEndDate());
+        Car car = this.carRepository.findById(updateRentalRequest.getCarId()).orElseThrow();
+
         Rental rental=this.modelMapperService.forRequest().map(updateRentalRequest,Rental.class);
+        rental.setTotalPrice(rentalBusinessRules.calculateTotalPrice(car.getDailyPrice(),
+                updateRentalRequest.getDiscount(), updateRentalRequest.getStartDate(), updateRentalRequest.getEndDate()));
+        rental.setStartKilometer(car.getKilometer());
+
         this.rentalRepository.save(rental);
     }
 
