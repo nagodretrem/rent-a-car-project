@@ -15,4 +15,5 @@ public interface CarService {
     void delete(int id);
 
 
+    boolean existsById(int id);
 }

@@ -8,10 +8,10 @@ import com.tobeto.rentacar.services.dtos.requests.car.AddCarRequest;
 import com.tobeto.rentacar.services.dtos.requests.car.UpdateCarRequest;
 import com.tobeto.rentacar.services.dtos.responses.car.GetCarListResponse;
 import com.tobeto.rentacar.services.dtos.responses.car.GetCarResponse;
+import com.tobeto.rentacar.services.rules.CarBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class CarManager implements CarService {
     private final CarRepository carRepository;
     private ModelMapperService modelMapperService;
+    private CarBusinessRules carBusinessRules;
     @Override
     public List<GetCarListResponse> getAll() {
         List<Car> cars=carRepository.findAll();
@@ -34,14 +35,14 @@ public class CarManager implements CarService {
 
     @Override
     public void add(AddCarRequest addCarRequest) {
-        addCarRequest.setPlateNumber(addCarRequest.getPlateNumber().replaceAll("\s", "").toUpperCase());
 
-        if(carRepository.existsByPlateNumber(addCarRequest.getPlateNumber())){
+        carBusinessRules.checkIfCarPlateExists(addCarRequest.getPlateNumber());
+        carBusinessRules.checkIfColorIdNotExists(addCarRequest.getModelId());
+        carBusinessRules.checkIfModelIdNotExists(addCarRequest.getModelId());
 
-            throw new RuntimeException("Aynı plaka tekrar girilemez");
-        }
 
         Car car=this.modelMapperService.forRequest().map(addCarRequest,Car.class);
+        car.setPlateNumber(carBusinessRules.plateStandart(car.getPlateNumber()));
         this.carRepository.save(car);
 
 
@@ -57,7 +58,12 @@ public class CarManager implements CarService {
 
     @Override
     public void update(UpdateCarRequest updateCarRequest) {
+        carBusinessRules.checkIfColorIdNotExists(updateCarRequest.getModelId());
+        carBusinessRules.checkIfModelIdNotExists(updateCarRequest.getModelId());
+
+
         Car car=this.modelMapperService.forRequest().map(updateCarRequest,Car.class);
+        car.setPlateNumber(carBusinessRules.plateStandart(car.getPlateNumber()));
         this.carRepository.save(car);
 
     }
@@ -66,5 +72,10 @@ public class CarManager implements CarService {
     public void delete(int id) {
         this.carRepository.deleteById(id);
 
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        return this.carRepository.existsById(id);
     }
 }
