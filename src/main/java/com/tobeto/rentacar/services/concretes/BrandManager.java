@@ -8,6 +8,7 @@ import com.tobeto.rentacar.services.dtos.requests.brand.AddBrandRequest;
 import com.tobeto.rentacar.services.dtos.requests.brand.UpdateBrandRequest;
 import com.tobeto.rentacar.services.dtos.responses.brand.GetBrandListResponse;
 import com.tobeto.rentacar.services.dtos.responses.brand.GetBrandResponse;
+import com.tobeto.rentacar.services.rules.BrandBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class BrandManager implements BrandService {
     private final BrandRepository brandRepository;
     private ModelMapperService modelMapperService;
+    private BrandBusinessRules brandBusinessRules;
     @Override
     public List<GetBrandListResponse> getAll() {
         List<Brand> brands=this.brandRepository.findAll();
@@ -38,26 +40,33 @@ public class BrandManager implements BrandService {
 
     @Override
     public void add(AddBrandRequest addBrandRequest) {
-        if (brandRepository.existsByName(addBrandRequest.getName()))
-        {
-            throw new RuntimeException("Ayni isimle 2 marka eklenemez!");
-        }
+        String name = brandBusinessRules.nameStandard(addBrandRequest.getName());
+        brandBusinessRules.checkIfBrandNameExists(name);
+
         Brand brand=this.modelMapperService.forRequest().map(addBrandRequest,Brand.class);
+        brand.setName(name);
         this.brandRepository.save(brand);
 
     }
 
     @Override
     public void update(UpdateBrandRequest updateBrandRequest) {
+        String name = brandBusinessRules.nameStandard(updateBrandRequest.getName());
+        brandBusinessRules.checkIfBrandNameExists(name);
+
         Brand brand=this.modelMapperService.forRequest().map(updateBrandRequest,Brand.class);
+        brand.setName(name);
         this.brandRepository.save(brand);
-
-
     }
 
     @Override
     public void delete(int id) {
         this.brandRepository.deleteById(id);
 
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        return this.brandRepository.existsById(id);
     }
 }
