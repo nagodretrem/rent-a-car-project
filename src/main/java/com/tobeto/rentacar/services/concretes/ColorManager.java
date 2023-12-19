@@ -8,6 +8,7 @@ import com.tobeto.rentacar.services.dtos.requests.color.AddColorRequest;
 import com.tobeto.rentacar.services.dtos.requests.color.UpdateColorRequest;
 import com.tobeto.rentacar.services.dtos.responses.color.GetColorListResponse;
 import com.tobeto.rentacar.services.dtos.responses.color.GetColorResponse;
+import com.tobeto.rentacar.services.rules.ColorBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class ColorManager implements ColorService {
     private final ColorRepository colorRepository;
     private ModelMapperService modelMapperService;
+    private ColorBusinessRules colorBusinessRules;
     @Override
     public List<GetColorListResponse> getAll() {
         List<Color> colors=this.colorRepository.findAll();
@@ -38,10 +40,9 @@ public class ColorManager implements ColorService {
 
     @Override
     public void add(AddColorRequest addColorRequest) {
-        if (colorRepository.existsByName(addColorRequest.getName())){
-            throw new RuntimeException("Ayni renk tekrar eklenilemez");
-        }
+        colorBusinessRules.checkIfColorNameExists(addColorRequest.getName());
         Color color=this.modelMapperService.forRequest().map(addColorRequest,Color.class);
+        color.setName(colorBusinessRules.nameStandart(color.getName()));
         this.colorRepository.save(color);
 
     }
@@ -49,6 +50,7 @@ public class ColorManager implements ColorService {
     @Override
     public void update(UpdateColorRequest updateColorRequest) {
         Color color=this.modelMapperService.forRequest().map(updateColorRequest,Color.class);
+        color.setName(colorBusinessRules.nameStandart(color.getName()));
         this.colorRepository.save(color);
 
     }
@@ -57,5 +59,10 @@ public class ColorManager implements ColorService {
     public void delete(int id) {
         this.colorRepository.deleteById(id);
 
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        return this.colorRepository.existsById(id);
     }
 }

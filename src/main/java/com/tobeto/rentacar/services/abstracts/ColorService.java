@@ -13,4 +13,6 @@ public interface ColorService {
     void add(AddColorRequest addColorRequest);
     void update(UpdateColorRequest updateColorRequest);
     void delete(int id);
+
+    boolean existsById(int id);
 }
