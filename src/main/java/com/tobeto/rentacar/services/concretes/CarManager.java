@@ -37,7 +37,7 @@ public class CarManager implements CarService {
     public void add(AddCarRequest addCarRequest) {
 
         carBusinessRules.checkIfCarPlateExists(addCarRequest.getPlateNumber());
-        carBusinessRules.checkIfColorIdNotExists(addCarRequest.getModelId());
+        carBusinessRules.checkIfColorIdNotExists(addCarRequest.getColorId());
         carBusinessRules.checkIfModelIdNotExists(addCarRequest.getModelId());
 
 
@@ -58,7 +58,7 @@ public class CarManager implements CarService {
 
     @Override
     public void update(UpdateCarRequest updateCarRequest) {
-        carBusinessRules.checkIfColorIdNotExists(updateCarRequest.getModelId());
+        carBusinessRules.checkIfColorIdNotExists(updateCarRequest.getColorId());
         carBusinessRules.checkIfModelIdNotExists(updateCarRequest.getModelId());
 
 
