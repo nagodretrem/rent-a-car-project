@@ -10,25 +10,31 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateCarRequest {
 
-    @NotNull(message = "Bu alan bos birakilamaz!")
-    @Min(value = 1)
+    @NotNull(message ="Car id cannot be empty" )
+    @Positive(message = "Car id must be a positive number")
     private int id;
 
-    @NotBlank(message = "Plate alanı boş geçilemez")
+    @NotBlank(message = "Car plate number cannot be empty" )
     @Pattern(regexp = "(0[1-9]|[1-7][0-9]|8[01])((\\s?[a-zA-Z]\\s?)(\\d{4,5})|(\\s?[a-zA-Z]{2}\\s?)(\\d{3,4})|(\\s?[a-zA-Z]{3}\\s?)(\\d{2,3}))"
-            ,message = "Geçersiz plaka")
+            ,message ="Invalid plate number")
     private String plateNumber;
 
-    @Min(value = 0,message = "O'dan küçük olamaz.")
-    @NotNull(message = "Bu alan boş geçilemez")
+    @NotNull(message ="Car kilometer cannot be empty" )
+    @Min(value = 0,message = "Car kilometer can not be less than 0!")
     private int kilometer;
 
-    @NotNull(message = "Dailyprice alanı boş geçilemez")
-    @DecimalMin(value = "0.0",inclusive = false,message = "Dailyprice 0'dan küçük olamaz")
+    @NotNull(message ="Car dailyPrice cannot be empty" )
+    @DecimalMin(value = "0.0",inclusive = false,message ="Car dailyPrice can not be less than 0!" )
     private double dailyPrice;
 
-    @NotNull(message = "Bu alan boş geçilemez")
-    @Min(value=2005,message = "Yıl 2005'ten küçük olamaz.")
-    @Max(value = 2024,message = "Yıl 2024'ten büyük olamaz")
+    @NotNull(message = "Car year cannot be empty" )
+    @Min(value=2005,message = "Car year can not be less than 2005!")
+    @Max(value = 2024,message = "Car year can not be greater than 2024!")
     private int year;
+    @NotNull(message ="Car modelId cannot be empty" )
+    @Positive(message = "Car modelId must be a positive number")
+    private int modelId;
+    @NotNull(message ="Car colorId cannot be empty" )
+    @Positive(message = "Car colorId must be a positive number")
+    private int colorId;
 }

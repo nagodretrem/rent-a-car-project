@@ -1,9 +1,6 @@
 package com.tobeto.rentacar.services.dtos.requests.brand;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,10 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateBrandRequest {
-    @NotNull(message = "Bu alan bos birakilamaz!")
-    @Min(value = 1)
+    @NotNull(message = "Brand id cannot be empty")
+    @Positive(message = "Brand id must be a positive number")
     private int id;
-    @NotBlank(message = "Bu alan bos birakilamaz!")
-    @Size(min = 2, max = 20, message = "Marka ismi en az 2 en fazla 20 karakter olmalidir!")
+    @NotBlank(message = "Brand name cannot be empty")
+    @Size(min = 2, max = 25, message = "Brand name must be between 2 and 25 characters long")
     private String name;
 }

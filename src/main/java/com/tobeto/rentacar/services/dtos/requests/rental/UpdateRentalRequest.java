@@ -1,6 +1,7 @@
 package com.tobeto.rentacar.services.dtos.requests.rental;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,24 +13,29 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class UpdateRentalRequest {
 
-    @NotNull(message = "Bu alan bos birakilamaz!")
+    @NotNull(message = "Rental id cannot be empty!")
+    @Positive(message = "Rental id must be a positive number.")
     private int id;
-    @NotNull(message = "Bu alan bos birakilamaz!")
+
+    @NotNull(message = "Rental startDate cannot be empty!")
     private LocalDate startDate;
-    @NotNull(message = "Bu alan bos birakilamaz!")
+
+    @NotNull(message = "Rental endDate cannot be empty!")
     private LocalDate endDate;
-    @NotNull(message = "Bu alan bos birakilamaz!")
-    private int startKilometer;
-    @NotNull(message = "Bu alan bos birakilamaz!")
-    private double totalPrice;
-    @NotNull(message = "Bu alan bos birakilamaz!")
+
+    @NotNull(message = "Rental discount cannot be empty!")
+    @Positive(message = "Rental discount must be a positive number.")
     private double discount;
-    @NotNull(message = "Bu alan bos birakilamaz!")
+
+    @NotNull(message = "Rental carId cannot be empty!")
     private int carId;
-    @NotNull(message = "Bu alan bos birakilamaz!")
+
+    @NotNull(message = "Rental customerId cannot be empty!")
     private int customerId;
-    @NotNull(message = "Bu alan bos birakilamaz!")
+
+    @NotNull(message = "Rental employeeId cannot be empty!")
     private int employeeId;
+
     private LocalDate returnDate;
     private int endKilometer;
 

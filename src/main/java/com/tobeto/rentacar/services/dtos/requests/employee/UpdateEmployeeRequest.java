@@ -1,6 +1,7 @@
 package com.tobeto.rentacar.services.dtos.requests.employee;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,10 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateEmployeeRequest {
 
-    @NotNull(message = "Bu alan bos birakilamaz!")
+    @NotNull(message = "Employee id cannot be empty!")
+    @Positive(message = "Id must be a positive number.")
     private int id;
-    @NotNull(message = "Bu alan bos birakilamaz!")
+    @NotNull(message = "Employee salary cannot be empty!")
+    @Positive(message = "Employee salary must be a positive number.")
     private double salary;
-    @NotNull(message = "Bu alan bos birakilamaz!")
+    @NotNull(message = "Employee userId cannot be empty!")
+    @Positive(message = "Employee userId must be a positive number.")
     private int userId;
 }

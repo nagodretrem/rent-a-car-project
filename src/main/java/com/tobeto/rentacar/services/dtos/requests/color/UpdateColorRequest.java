@@ -1,9 +1,6 @@
 package com.tobeto.rentacar.services.dtos.requests.color;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,10 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateColorRequest {
-    @NotNull(message = "Bu alan bos birakilamaz!")
-    @Min(value = 1)
+    @NotNull(message = "Color id cannot be empty!")
+    @Positive(message = "Color id must be a positive number.")
     private int id;
-    @NotBlank(message = "Bu alan bos birakilamaz!")
-    @Size(min = 2, max = 15, message = "Renk ismi en az 2 en fazla 15 karakter olmalidir!")
+    @NotBlank(message = "Color name cannot be empty!")
+    @Size(min = 2, max = 25, message = "Color name must be between 2 and 25 characters long!")
     private String name;
 }
