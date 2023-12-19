@@ -10,9 +10,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddModelRequest {
-    @NotBlank(message = "Bu alan bos birakilamaz!")
-    @Size(min = 2, max = 20, message = "Model ismi minimum 2 maximum 20 karakter olmalidir")
+    @NotBlank(message = "Model name cannot be empty!")
+    @Size(min = 2, max = 25, message = "Model name must be between 2 and 25 characters long!")
     private String name;
-    @NotNull(message = "Bu alan bos birakilamaz!")
+    @NotNull(message = "Brand id cannot be empty!")
+    @Positive
     private int brandId;
 }

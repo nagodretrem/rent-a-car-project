@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddBrandRequest {
-    @NotBlank(message = "Bu alan bos birakilamaz!")
-    @Size(min = 2, max = 20, message = "Marka ismi en az 2 en fazla 20 karakter olmalidir!")
+    @NotBlank(message = "Brand name cannot be empty")
+    @Size(min = 2, max = 25, message = "Brand name must be between 2 and 25 characters long")
     private String name;
 }
+
+

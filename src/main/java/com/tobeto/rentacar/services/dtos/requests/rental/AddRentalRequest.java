@@ -13,19 +13,27 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddRentalRequest {
-    @FutureOrPresent(message = "Kiralama tarihi bugünden geçmiş bir tarih olamaz!")
-    @NotNull(message = "Bu alan bos birakilamaz!")
+
+
+    @NotNull(message = "Rental startDate cannot be empty!")
+    @FutureOrPresent(message = "Start date must not be before today!")
     private LocalDate startDate;
-    @NotNull(message = "Bu alan bos birakilamaz!")
+
+    @NotNull(message = "Rental endDate cannot be empty!")
+    @Future(message = "End date must be future date!")
     private LocalDate endDate;
 
-    @NotNull(message = "Bu alan bos birakilamaz!")
+    @NotNull(message = "Rental discount cannot be empty!")
     private double discount;
-    @NotNull(message = "Bu alan bos birakilamaz!")
+
+    @NotNull(message = "Rental carId cannot be empty!")
     private int carId;
-    @NotNull(message = "Bu alan bos birakilamaz!")
+
+    @NotNull(message = "Rental customerId cannot be empty!")
     private int customerId;
-    @NotNull(message = "Bu alan bos birakilamaz!")
+
+    @NotNull(message = "Rental employeeId cannot be empty!")
     private int employeeId;
+
 
 }

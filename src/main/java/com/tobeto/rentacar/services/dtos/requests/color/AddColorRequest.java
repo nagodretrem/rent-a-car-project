@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddColorRequest {
-    @NotBlank(message = "Bu alan bos birakilamaz!")
-    @Size(min = 2, max = 15, message = "Renk ismi en az 2 en fazla 15 karakter olmalidir!")
+    @NotBlank(message = "Color name cannot be empty!")
+    @Size(min = 2, max = 25, message = "Color name must be between 2 and 25 characters long!")
     private String name;
 }
