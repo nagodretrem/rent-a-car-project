@@ -8,6 +8,7 @@ import com.tobeto.rentacar.services.dtos.requests.employee.AddEmployeeRequest;
 import com.tobeto.rentacar.services.dtos.requests.employee.UpdateEmployeeRequest;
 import com.tobeto.rentacar.services.dtos.responses.employee.GetEmployeeListResponse;
 import com.tobeto.rentacar.services.dtos.responses.employee.GetEmployeeResponse;
+import com.tobeto.rentacar.services.rules.EmployeeBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class EmployeeManager implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private ModelMapperService modelMapperService;
+    private EmployeeBusinessRules employeeBusinessRules;
 
 
     @Override
@@ -42,12 +44,14 @@ public class EmployeeManager implements EmployeeService {
 
     @Override
     public void add(AddEmployeeRequest addEmployeeRequest) {
+        employeeBusinessRules.checkIfUserIdNotExists(addEmployeeRequest.getUserId());
         Employee employee=this.modelMapperService.forRequest().map(addEmployeeRequest,Employee.class);
         this.employeeRepository.save(employee);
     }
 
     @Override
     public void update(UpdateEmployeeRequest updateEmployeeRequest) {
+        employeeBusinessRules.checkIfUserIdNotExists(updateEmployeeRequest.getUserId());
         Employee employee=this.modelMapperService.forRequest().map(updateEmployeeRequest,Employee.class);
         this.employeeRepository.save(employee);
     }
@@ -55,6 +59,11 @@ public class EmployeeManager implements EmployeeService {
     @Override
     public void delete(int id) {
         this.employeeRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        return this.employeeRepository.existsById(id);
     }
 
 }

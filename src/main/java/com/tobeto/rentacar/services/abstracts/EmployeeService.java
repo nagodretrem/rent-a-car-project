@@ -13,4 +13,6 @@ public interface EmployeeService {
     void add(AddEmployeeRequest addEmployeeRequest);
     void update(UpdateEmployeeRequest updateEmployeeRequest);
     void delete(int id);
+
+    boolean existsById(int id);
 }
