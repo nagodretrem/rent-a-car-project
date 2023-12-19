@@ -1,18 +1,19 @@
 package com.tobeto.rentacar.services.concretes;
 
 import com.tobeto.rentacar.core.utilities.mappers.ModelMapperService;
+import com.tobeto.rentacar.entities.Car;
 import com.tobeto.rentacar.entities.Rental;
+import com.tobeto.rentacar.repositories.CarRepository;
 import com.tobeto.rentacar.repositories.RentalRepository;
-import com.tobeto.rentacar.services.abstracts.CarService;
 import com.tobeto.rentacar.services.abstracts.RentalService;
 import com.tobeto.rentacar.services.dtos.requests.rental.AddRentalRequest;
 import com.tobeto.rentacar.services.dtos.requests.rental.UpdateRentalRequest;
 import com.tobeto.rentacar.services.dtos.responses.rental.GetRentalListResponse;
 import com.tobeto.rentacar.services.dtos.responses.rental.GetRentalResponse;
+import com.tobeto.rentacar.services.rules.RentalBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,9 +22,9 @@ import java.util.stream.Collectors;
 public class RentalManager implements RentalService {
 
     private final RentalRepository rentalRepository;
-    private final CarService carService;
-
+    private RentalBusinessRules rentalBusinessRules;
     private ModelMapperService modelMapperService;
+    private CarRepository carRepository;
 
 
     @Override
@@ -45,25 +46,19 @@ public class RentalManager implements RentalService {
 
     @Override
     public void add(AddRentalRequest addRentalRequest) {
-        Long totalDay = ChronoUnit.DAYS.between(addRentalRequest.getStartDate(),addRentalRequest.getEndDate());
-
-        if (addRentalRequest.getEndDate().isBefore(addRentalRequest.getStartDate())) {
-            throw new RuntimeException("Bitiş tarihi başlangıç tarihinden daha geçmiş bir tarih olamaz.");
-        }
-        if (totalDay>25){
-            throw new RuntimeException("Bir araç maksimum 25 gün kiralanabilir!");
-        }
+        rentalBusinessRules.checkIfCarIdNotExists(addRentalRequest.getCarId());
+        rentalBusinessRules.checkIfCustomerIdNotExists(addRentalRequest.getCustomerId());
+        rentalBusinessRules.checkIfEmployeeIdNotExists(addRentalRequest.getEmployeeId());
+        rentalBusinessRules.checkIfStartDateAfterBeforeDate(addRentalRequest.getStartDate(),addRentalRequest.getEndDate());
+        rentalBusinessRules.checkIfMaxRentalDate(addRentalRequest.getStartDate(),addRentalRequest.getEndDate());
+        Car car = this.carRepository.findById(addRentalRequest.getCarId()).orElseThrow();
 
 
-            Rental rental=this.modelMapperService.forRequest().map(addRentalRequest,Rental.class);
-       rental.setStartKilometer(carService.getById(addRentalRequest.getCarId()).getKilometer());
-        rental.setTotalPrice(carService.getById(addRentalRequest.getCarId()).
-                getDailyPrice()*totalDay.doubleValue());
+        Rental rental=this.modelMapperService.forRequest().map(addRentalRequest,Rental.class);
+        rental.setTotalPrice(rentalBusinessRules.calculateTotalPrice(car.getDailyPrice(),
+                addRentalRequest.getDiscount(), addRentalRequest.getStartDate(), addRentalRequest.getEndDate()));
+        rental.setStartKilometer(car.getKilometer());
         this.rentalRepository.save(rental);
-
-
-
-
     }
 
     @Override
