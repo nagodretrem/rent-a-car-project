@@ -8,6 +8,7 @@ import com.tobeto.rentacar.services.dtos.requests.user.AddUserRequest;
 import com.tobeto.rentacar.services.dtos.requests.user.UpdateUserRequest;
 import com.tobeto.rentacar.services.dtos.responses.user.GetUserListResponse;
 import com.tobeto.rentacar.services.dtos.responses.user.GetUserResponse;
+import com.tobeto.rentacar.services.rules.UserBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class UserManager implements UserService {
 
     private final UserRepository userRepository;
     private ModelMapperService modelMapperService;
+    private UserBusinessRules userBusinessRules;
 
     @Override
     public List<GetUserListResponse> getAll() {
@@ -41,14 +43,22 @@ public class UserManager implements UserService {
 
     @Override
     public void add(AddUserRequest addUserRequest) {
+        userBusinessRules.checkIfUserEmailExists(addUserRequest.getEmail());
+        userBusinessRules.checkIfUserGsmExists(addUserRequest.getGsm());
+
         User user=this.modelMapperService.forRequest().map(addUserRequest,User.class);
+        user.setName(userBusinessRules.nameStandart(addUserRequest.getName()));
+        user.setSurname(userBusinessRules.surnameStandart(addUserRequest.getSurname()));
         this.userRepository.save(user);
 
     }
 
     @Override
     public void update(UpdateUserRequest updateUserRequest) {
+
         User user=this.modelMapperService.forRequest().map(updateUserRequest,User.class);
+        user.setName(userBusinessRules.nameStandart(updateUserRequest.getName()));
+        user.setSurname(userBusinessRules.surnameStandart(updateUserRequest.getSurname()));
         this.userRepository.save(user);
 
     }
@@ -56,5 +66,10 @@ public class UserManager implements UserService {
     @Override
     public void delete(int id) {
         this.userRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        return this.userRepository.existsById(id);
     }
 }

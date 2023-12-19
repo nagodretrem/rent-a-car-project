@@ -13,4 +13,6 @@ public interface UserService {
     void add(AddUserRequest addUserRequest);
     void update(UpdateUserRequest updateUserRequest);
     void delete(int id);
+
+    boolean existsById(int id);
 }
