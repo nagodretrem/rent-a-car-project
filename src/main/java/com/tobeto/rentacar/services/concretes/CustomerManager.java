@@ -8,6 +8,7 @@ import com.tobeto.rentacar.services.dtos.requests.customer.AddCustomerRequest;
 import com.tobeto.rentacar.services.dtos.requests.customer.UpdateCustomerRequest;
 import com.tobeto.rentacar.services.dtos.responses.customer.GetCustomerListResponse;
 import com.tobeto.rentacar.services.dtos.responses.customer.GetCustomerResponse;
+import com.tobeto.rentacar.services.rules.CustomerBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class CustomerManager implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private ModelMapperService modelMapperService;
+    private CustomerBusinessRules customerBusinessRules;
 
     @Override
     public List<GetCustomerListResponse> getAll() {
@@ -41,12 +43,15 @@ public class CustomerManager implements CustomerService {
 
     @Override
     public void add(AddCustomerRequest addCustomerRequest) {
+        customerBusinessRules.checkIfUserIdNotExists(addCustomerRequest.getUserId());
+        customerBusinessRules.checkIfCustomerNationalityIdExists(addCustomerRequest.getNationalityId());
         Customer customer=this.modelMapperService.forRequest().map(addCustomerRequest,Customer.class);
         this.customerRepository.save(customer);
     }
 
     @Override
     public void update(UpdateCustomerRequest updateCustomerRequest) {
+        customerBusinessRules.checkIfUserIdNotExists(updateCustomerRequest.getUserId());
         Customer customer=this.modelMapperService.forRequest().map(updateCustomerRequest,Customer.class);
         this.customerRepository.save(customer);
 
@@ -55,5 +60,10 @@ public class CustomerManager implements CustomerService {
     @Override
     public void delete(int id) {
         this.customerRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        return this.customerRepository.existsById(id);
     }
 }

@@ -13,4 +13,6 @@ public interface CustomerService {
     void add(AddCustomerRequest addCustomerRequest);
     void update(UpdateCustomerRequest updateCustomerRequest);
     void delete(int id);
+
+    boolean existsById(int id);
 }
