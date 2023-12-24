@@ -1,7 +1,5 @@
 package com.tobeto.rentacar.controllers;
 
-import com.tobeto.rentacar.entities.Car;
-import com.tobeto.rentacar.repositories.CarRepository;
 import com.tobeto.rentacar.services.abstracts.CarService;
 import com.tobeto.rentacar.services.dtos.requests.car.AddCarRequest;
 import com.tobeto.rentacar.services.dtos.requests.car.UpdateCarRequest;

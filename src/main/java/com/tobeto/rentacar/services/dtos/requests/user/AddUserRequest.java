@@ -12,15 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AddUserRequest {
 
-    @NotBlank(message = "User name cannot be empty!")
-    private String name;
-    @NotBlank(message = "User surname cannot be empty!")
-    private String surname;
+    @NotBlank(message = "User password cannot be empty!")
+    private String password;
+    @NotBlank(message = "User adaress cannot be empty!")
+    private String address;
     @NotBlank(message = "User email cannot be empty!")
     @Email(message = "User email must be a valid email address.")
     private String email;
-    @NotBlank(message = "User gsm cannot be empty!")
-    @Pattern(regexp = "05\\d{9}", message = "Gsm must be a valid number. Like 05xxxxxxxxx")
-    private String gsm;
 
 }

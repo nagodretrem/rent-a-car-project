@@ -1,7 +1,7 @@
 package com.tobeto.rentacar.services.concretes;
 
-import com.tobeto.rentacar.core.utilities.mappers.ModelMapperService;
-import com.tobeto.rentacar.entities.Brand;
+import com.tobeto.rentacar.core.utilities.mappers.services.ModelMapperService;
+import com.tobeto.rentacar.entities.concretes.Brand;
 import com.tobeto.rentacar.repositories.BrandRepository;
 import com.tobeto.rentacar.services.abstracts.BrandService;
 import com.tobeto.rentacar.services.dtos.requests.brand.AddBrandRequest;

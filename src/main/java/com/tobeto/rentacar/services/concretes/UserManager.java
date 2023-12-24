@@ -1,7 +1,7 @@
 package com.tobeto.rentacar.services.concretes;
 
-import com.tobeto.rentacar.core.utilities.mappers.ModelMapperService;
-import com.tobeto.rentacar.entities.User;
+import com.tobeto.rentacar.core.utilities.mappers.services.ModelMapperService;
+import com.tobeto.rentacar.entities.concretes.User;
 import com.tobeto.rentacar.repositories.UserRepository;
 import com.tobeto.rentacar.services.abstracts.UserService;
 import com.tobeto.rentacar.services.dtos.requests.user.AddUserRequest;
@@ -44,11 +44,7 @@ public class UserManager implements UserService {
     @Override
     public void add(AddUserRequest addUserRequest) {
         userBusinessRules.checkIfUserEmailExists(addUserRequest.getEmail());
-        userBusinessRules.checkIfUserGsmExists(addUserRequest.getGsm());
-
         User user=this.modelMapperService.forRequest().map(addUserRequest,User.class);
-        user.setName(userBusinessRules.nameStandart(addUserRequest.getName()));
-        user.setSurname(userBusinessRules.surnameStandart(addUserRequest.getSurname()));
         this.userRepository.save(user);
 
     }
@@ -57,8 +53,6 @@ public class UserManager implements UserService {
     public void update(UpdateUserRequest updateUserRequest) {
 
         User user=this.modelMapperService.forRequest().map(updateUserRequest,User.class);
-        user.setName(userBusinessRules.nameStandart(updateUserRequest.getName()));
-        user.setSurname(userBusinessRules.surnameStandart(updateUserRequest.getSurname()));
         this.userRepository.save(user);
 
     }

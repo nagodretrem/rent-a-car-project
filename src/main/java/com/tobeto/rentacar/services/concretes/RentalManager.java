@@ -1,8 +1,8 @@
 package com.tobeto.rentacar.services.concretes;
 
-import com.tobeto.rentacar.core.utilities.mappers.ModelMapperService;
-import com.tobeto.rentacar.entities.Car;
-import com.tobeto.rentacar.entities.Rental;
+import com.tobeto.rentacar.core.utilities.mappers.services.ModelMapperService;
+import com.tobeto.rentacar.entities.concretes.Car;
+import com.tobeto.rentacar.entities.concretes.Rental;
 import com.tobeto.rentacar.repositories.CarRepository;
 import com.tobeto.rentacar.repositories.RentalRepository;
 import com.tobeto.rentacar.services.abstracts.RentalService;

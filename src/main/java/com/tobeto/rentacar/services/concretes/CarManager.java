@@ -1,7 +1,7 @@
 package com.tobeto.rentacar.services.concretes;
 
-import com.tobeto.rentacar.core.utilities.mappers.ModelMapperService;
-import com.tobeto.rentacar.entities.Car;
+import com.tobeto.rentacar.core.utilities.mappers.services.ModelMapperService;
+import com.tobeto.rentacar.entities.concretes.Car;
 import com.tobeto.rentacar.repositories.CarRepository;
 import com.tobeto.rentacar.services.abstracts.CarService;
 import com.tobeto.rentacar.services.dtos.requests.car.AddCarRequest;
@@ -36,13 +36,13 @@ public class CarManager implements CarService {
     @Override
     public void add(AddCarRequest addCarRequest) {
 
-        carBusinessRules.checkIfCarPlateExists(addCarRequest.getPlateNumber());
+        carBusinessRules.checkIfCarPlateExists(addCarRequest.getPlate());
         carBusinessRules.checkIfColorIdNotExists(addCarRequest.getColorId());
         carBusinessRules.checkIfModelIdNotExists(addCarRequest.getModelId());
 
 
         Car car=this.modelMapperService.forRequest().map(addCarRequest,Car.class);
-        car.setPlateNumber(carBusinessRules.plateStandart(car.getPlateNumber()));
+        car.setPlate(carBusinessRules.plateStandart(car.getPlate()));
         this.carRepository.save(car);
 
 
@@ -63,7 +63,7 @@ public class CarManager implements CarService {
 
 
         Car car=this.modelMapperService.forRequest().map(updateCarRequest,Car.class);
-        car.setPlateNumber(carBusinessRules.plateStandart(car.getPlateNumber()));
+        car.setPlate(carBusinessRules.plateStandart(car.getPlate()));
         this.carRepository.save(car);
 
     }

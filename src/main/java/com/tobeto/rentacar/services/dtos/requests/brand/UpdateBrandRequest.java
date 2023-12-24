@@ -15,4 +15,7 @@ public class UpdateBrandRequest {
     @NotBlank(message = "Brand name cannot be empty")
     @Size(min = 2, max = 25, message = "Brand name must be between 2 and 25 characters long")
     private String name;
+
+    @NotBlank(message = "Logo path cannot be empty")
+    private String logoPath;
 }

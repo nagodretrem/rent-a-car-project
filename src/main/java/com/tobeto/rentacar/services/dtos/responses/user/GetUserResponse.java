@@ -10,12 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GetUserResponse {
 
-
-    private String name;
-
-    private String surname;
-
+    private String password;
+    private String address;
     private String email;
-
-    private String gsm;
 }

@@ -1,23 +1,21 @@
-package com.tobeto.rentacar.entities;
+package com.tobeto.rentacar.entities.concretes;
 
+import com.tobeto.rentacar.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.modelmapper.internal.bytebuddy.agent.builder.AgentBuilder;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "rentals")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Rental {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+public class Rental extends BaseEntity {
 
     @Column(name = "start_date")
     private LocalDate startDate;
@@ -34,12 +32,6 @@ public class Rental {
     @Column(name = "end_kilometer")
     private int endKilometer;
 
-    @Column(name = "total_price")
-    private double totalPrice;
-
-    @Column(name = "discount")
-    private double discount;
-
     @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
@@ -48,7 +40,7 @@ public class Rental {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @OneToMany(mappedBy = "rental")
+    private List<Invoices> invoices;
+
 }

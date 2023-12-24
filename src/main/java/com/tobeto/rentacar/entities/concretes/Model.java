@@ -1,6 +1,7 @@
-package com.tobeto.rentacar.entities;
+package com.tobeto.rentacar.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tobeto.rentacar.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,21 +10,21 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "colors")
+@Table(name = "models")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Color {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+public class Model extends BaseEntity {
 
     @Column(name = "name", unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "color")
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
+
+    @OneToMany(mappedBy = "model")
     @JsonIgnore
     private List<Car> cars;
+
 }

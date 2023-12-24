@@ -1,0 +1,31 @@
+package com.tobeto.rentacar.entities.concretes;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Table(name = "invoices")
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class Invoices
+{
+    @Column(name = "invoice_no")
+    private String invoiceNo;
+
+    @Column(name = "tax_rate")
+    private int taxRate;
+
+    @Column(name = "discount_rate")
+    private short discountRate;
+
+    @Column(name = "total_price")
+    private float totalPrice;
+
+    @ManyToOne()
+    @JoinColumn(name = "rental_id")
+    private Rental rental;
+}

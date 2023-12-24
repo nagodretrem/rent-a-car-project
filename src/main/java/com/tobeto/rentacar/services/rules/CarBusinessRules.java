@@ -15,8 +15,8 @@ public class CarBusinessRules {
     private ModelService modelService;
     private ColorService colorService;
 
-    public void checkIfCarPlateExists(String plateNumber){
-        if (carRepository.existsByPlateNumber(plateStandart(plateNumber))){
+    public void checkIfCarPlateExists(String plate){
+        if (carRepository.existsByPlate(plateStandart(plate))){
             throw new BusinessException("Plate number already exists");
         }
     }
@@ -33,8 +33,8 @@ public class CarBusinessRules {
         }
     }
 
-    public String plateStandart(String plateNumber){
-        return plateNumber.replaceAll("\s", "").toUpperCase();
+    public String plateStandart(String plate){
+        return plate.replaceAll("\s", "").toUpperCase();
     }
 
 

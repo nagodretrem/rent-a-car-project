@@ -15,4 +15,7 @@ public class UpdateColorRequest {
     @NotBlank(message = "Color name cannot be empty!")
     @Size(min = 2, max = 25, message = "Color name must be between 2 and 25 characters long!")
     private String name;
+
+    @NotBlank(message = "Color code cannot be empty!")
+    private String code;
 }

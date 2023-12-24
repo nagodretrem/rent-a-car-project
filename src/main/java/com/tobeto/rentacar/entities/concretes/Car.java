@@ -1,7 +1,8 @@
-package com.tobeto.rentacar.entities;
+package com.tobeto.rentacar.entities.concretes;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tobeto.rentacar.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,23 +16,26 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Car {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+public class Car extends BaseEntity {
 
-    @Column(name = "plate_number", unique = true)
-    private String plateNumber;
+
+    @Column(name = "plate", unique = true)
+    private String plate;
 
     @Column(name = "kilometer")
-    private int kilometer;
+    private long kilometer;
 
     @Column(name = "daily_price")
-    private double dailyPrice;
+    private float dailyPrice;
 
-    @Column(name = "year")
-    private int year;
+    @Column(name = "model_year")
+    private short modelYear;
+
+    @Column(name = "min_findeks_rate")
+    private short minFindeksRate;
+
+    @Column (name = "image_path")
+    private String imagePath;
 
     @ManyToOne
     @JoinColumn(name = "model_id")
