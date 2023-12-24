@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Invoices
+public class Invoice
 {
     @Column(name = "invoice_no")
     private String invoiceNo;

@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.modelmapper.internal.bytebuddy.agent.builder.AgentBuilder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -41,6 +40,6 @@ public class Rental extends BaseEntity {
     private Customer customer;
 
     @OneToMany(mappedBy = "rental")
-    private List<Invoices> invoices;
+    private List<Invoice> invoices;
 
 }

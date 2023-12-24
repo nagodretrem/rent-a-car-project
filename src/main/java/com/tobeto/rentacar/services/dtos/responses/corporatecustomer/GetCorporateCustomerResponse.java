@@ -1,5 +1,6 @@
 package com.tobeto.rentacar.services.dtos.responses.corporatecustomer;
 
+import com.tobeto.rentacar.services.dtos.responses.model.GetModelResponse;
 import com.tobeto.rentacar.services.dtos.responses.user.GetUserResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,3 +16,4 @@ public class GetCorporateCustomerResponse {
     private String gsm;
     private GetUserResponse userResponse;
 }
+

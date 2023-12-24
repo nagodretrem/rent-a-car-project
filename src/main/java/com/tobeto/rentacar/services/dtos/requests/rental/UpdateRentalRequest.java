@@ -23,18 +23,12 @@ public class UpdateRentalRequest {
     @NotNull(message = "Rental endDate cannot be empty!")
     private LocalDate endDate;
 
-    @NotNull(message = "Rental discount cannot be empty!")
-    @Positive(message = "Rental discount must be a positive number.")
-    private double discount;
 
     @NotNull(message = "Rental carId cannot be empty!")
     private int carId;
 
     @NotNull(message = "Rental customerId cannot be empty!")
     private int customerId;
-
-    @NotNull(message = "Rental employeeId cannot be empty!")
-    private int employeeId;
 
     private LocalDate returnDate;
     private int endKilometer;
