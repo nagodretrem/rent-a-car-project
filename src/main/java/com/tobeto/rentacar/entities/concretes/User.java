@@ -32,4 +32,7 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     private List<CorporateCustomer> corporateCustomers;
 
+    @OneToMany(mappedBy = "user")
+    private List<Rental> rentals;
+
 }

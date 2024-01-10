@@ -34,6 +34,6 @@ public class AddCustomerRequest {
     @NotBlank(message = "Customer gsm cannot be empty!")
     @Pattern(regexp = "05\\d{9}", message = "Gsm must be a valid number. Like 05xxxxxxxxx")
     private String gsm;
-
+    @NotNull
     private LocalDate birthDate;
 }

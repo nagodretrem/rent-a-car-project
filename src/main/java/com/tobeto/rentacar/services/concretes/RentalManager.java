@@ -48,16 +48,12 @@ public class RentalManager implements RentalService {
     public void add(AddRentalRequest addRentalRequest) {
         rentalBusinessRules.checkIfCarIdNotExists(addRentalRequest.getCarId());
         rentalBusinessRules.checkIfCustomerIdNotExists(addRentalRequest.getCustomerId());
-        rentalBusinessRules.checkIfEmployeeIdNotExists(addRentalRequest.getEmployeeId());
         rentalBusinessRules.checkIfStartDateAfterBeforeDate(addRentalRequest.getStartDate(),addRentalRequest.getEndDate());
         rentalBusinessRules.checkIfMaxRentalDate(addRentalRequest.getStartDate(),addRentalRequest.getEndDate());
         Car car = this.carRepository.findById(addRentalRequest.getCarId()).orElseThrow();
 
 
         Rental rental=this.modelMapperService.forRequest().map(addRentalRequest,Rental.class);
-        rental.setTotalPrice(rentalBusinessRules.calculateTotalPrice(car.getDailyPrice(),
-                addRentalRequest.getDiscount(), addRentalRequest.getStartDate(), addRentalRequest.getEndDate()));
-        rental.setStartKilometer(car.getKilometer());
 
         this.rentalRepository.save(rental);
     }
@@ -71,9 +67,6 @@ public class RentalManager implements RentalService {
         Car car = this.carRepository.findById(updateRentalRequest.getCarId()).orElseThrow();
 
         Rental rental=this.modelMapperService.forRequest().map(updateRentalRequest,Rental.class);
-        rental.setTotalPrice(rentalBusinessRules.calculateTotalPrice(car.getDailyPrice(),
-                updateRentalRequest.getDiscount(), updateRentalRequest.getStartDate(), updateRentalRequest.getEndDate()));
-        rental.setStartKilometer(car.getKilometer());
 
         this.rentalRepository.save(rental);
     }

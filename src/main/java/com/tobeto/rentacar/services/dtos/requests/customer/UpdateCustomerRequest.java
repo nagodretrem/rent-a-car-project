@@ -24,12 +24,14 @@ public class UpdateCustomerRequest {
     @Pattern(regexp = "\\d{11}", message = "NationalityId must be a 11-digit number.")
     private String nationalityId;
 
+    @NotBlank(message = "Customer first name cannot be empty!")
     private String firstName;
 
+    @NotBlank(message = "Customer last name cannot be empty!")
     private String lastName;
 
     @Pattern(regexp = "05\\d{9}", message = "Gsm must be a valid number. Like 05xxxxxxxxx")
     private String gsm;
-
+    @NotNull
     private LocalDate birthDate;
 }

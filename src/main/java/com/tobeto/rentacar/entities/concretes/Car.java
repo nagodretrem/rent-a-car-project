@@ -46,7 +46,6 @@ public class Car extends BaseEntity {
     private Color color;
 
     @OneToMany(mappedBy = "car")
-    @JsonIgnore
     private List<Rental> rentals;
 
 

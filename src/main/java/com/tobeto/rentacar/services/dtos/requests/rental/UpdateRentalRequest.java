@@ -1,5 +1,6 @@
 package com.tobeto.rentacar.services.dtos.requests.rental;
 
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -30,7 +31,9 @@ public class UpdateRentalRequest {
     @NotNull(message = "Rental customerId cannot be empty!")
     private int customerId;
 
+    @FutureOrPresent(message = "Rental returnDate must be in the future or present.")
     private LocalDate returnDate;
+
     private int endKilometer;
 
 }

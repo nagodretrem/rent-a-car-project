@@ -1,5 +1,6 @@
 package com.tobeto.rentacar.entities.concretes;
 
+import com.tobeto.rentacar.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Invoice
+public class Invoice extends BaseEntity
 {
     @Column(name = "invoice_no")
     private String invoiceNo;

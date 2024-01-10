@@ -16,6 +16,8 @@ public class BrandBusinessRules {
         }
     }
 
+
+
     public String nameStandard(String name){
         String standartName = name.trim();
         return standartName.substring(0,1).toUpperCase() + standartName.substring(1).toLowerCase();

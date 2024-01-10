@@ -37,7 +37,5 @@ public class Customer extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "customer")
-    @JsonIgnore
-    private List<Rental> rentals;
+
 }

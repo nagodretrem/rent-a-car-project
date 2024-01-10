@@ -17,7 +17,6 @@ public class RentalBusinessRules {
     private RentalRepository rentalRepository;
     private CarService carService;
     private CustomerService customerService;
-    private EmployeeService employeeService;
 
     public void  checkIfCarIdNotExists(int id){
         if (!carService.existsById(id)){
@@ -31,11 +30,7 @@ public class RentalBusinessRules {
         }
     }
 
-    public void checkIfEmployeeIdNotExists(int id){
-        if (!employeeService.existsById(id)){
-            throw new BusinessException("EmployeeId not found");
-        }
-    }
+
 
     public void checkIfRentalIdNotExists(int id){
         if (!rentalRepository.existsById(id)){
