@@ -29,11 +29,10 @@ public class AddRentalRequest {
     @NotNull(message = "Rental carId cannot be empty!")
     private int carId;
 
-    @NotNull(message = "Rental customerId cannot be empty!")
-    private int customerId;
+    @NotNull(message = "Rental userId cannot be empty!")
+    private int userId;
 
-    @NotNull(message = "Rental employeeId cannot be empty!")
-    private int employeeId;
+
 
 
 }

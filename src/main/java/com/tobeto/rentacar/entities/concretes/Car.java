@@ -34,7 +34,7 @@ public class Car extends BaseEntity {
     @Column(name = "min_findeks_rate")
     private short minFindeksRate;
 
-    @Column (name = "image_path")
+    @Column (name = "image_path", length =  500)
     private String imagePath;
 
     @ManyToOne

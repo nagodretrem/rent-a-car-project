@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class AddCorporateCustomerRequest {
 
     @NotBlank(message = "CorporateCustomer company name cannot be empty!")
-    @Size(min = 2, max = 25, message = "CorporateCustomer name must be between 2 and 25 characters long!")
+    @Size(min = 2, max = 100, message = "CorporateCustomer name must be between 2 and 100 characters long!")
     private String companyName;
     @NotBlank(message = "CorporateCustomer taxs no cannot be empty!")
     private String taxNo;
