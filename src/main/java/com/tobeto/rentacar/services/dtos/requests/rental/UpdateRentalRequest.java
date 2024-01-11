@@ -28,8 +28,8 @@ public class UpdateRentalRequest {
     @NotNull(message = "Rental carId cannot be empty!")
     private int carId;
 
-    @NotNull(message = "Rental customerId cannot be empty!")
-    private int customerId;
+    @NotNull(message = "Rental userId cannot be empty!")
+    private int userId;
 
     @FutureOrPresent(message = "Rental returnDate must be in the future or present.")
     private LocalDate returnDate;

@@ -35,11 +35,9 @@ public class Rental extends BaseEntity {
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne()
+    @JoinColumn(name="user_id")
     private User user;
 
-    @OneToMany(mappedBy = "rental")
-    private List<Invoice> invoices;
 
 }

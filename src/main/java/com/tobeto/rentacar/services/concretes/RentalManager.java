@@ -47,7 +47,7 @@ public class RentalManager implements RentalService {
     @Override
     public void add(AddRentalRequest addRentalRequest) {
         rentalBusinessRules.checkIfCarIdNotExists(addRentalRequest.getCarId());
-        rentalBusinessRules.checkIfCustomerIdNotExists(addRentalRequest.getCustomerId());
+        rentalBusinessRules.checkIfCustomerIdNotExists(addRentalRequest.getUserId());
         rentalBusinessRules.checkIfStartDateAfterBeforeDate(addRentalRequest.getStartDate(),addRentalRequest.getEndDate());
         rentalBusinessRules.checkIfMaxRentalDate(addRentalRequest.getStartDate(),addRentalRequest.getEndDate());
         Car car = this.carRepository.findById(addRentalRequest.getCarId()).orElseThrow();
@@ -61,7 +61,7 @@ public class RentalManager implements RentalService {
     @Override
     public void update(UpdateRentalRequest updateRentalRequest) {
         rentalBusinessRules.checkIfCarIdNotExists(updateRentalRequest.getCarId());
-        rentalBusinessRules.checkIfCustomerIdNotExists(updateRentalRequest.getCustomerId());
+        rentalBusinessRules.checkIfCustomerIdNotExists(updateRentalRequest.getUserId());
         rentalBusinessRules.checkIfStartDateAfterBeforeDate(updateRentalRequest.getStartDate(),updateRentalRequest.getEndDate());
         rentalBusinessRules.checkIfMaxRentalDate(updateRentalRequest.getStartDate(),updateRentalRequest.getEndDate());
         Car car = this.carRepository.findById(updateRentalRequest.getCarId()).orElseThrow();

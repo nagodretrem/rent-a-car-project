@@ -22,10 +22,7 @@ public class AddRentalRequest {
     @NotNull(message = "Rental endDate cannot be empty!")
     @Future(message = "End date must be future date!")
     private LocalDate endDate;
-
-    @NotNull(message = "Rental discount cannot be empty!")
-    private double discount;
-
+    
     @NotNull(message = "Rental carId cannot be empty!")
     private int carId;
 
