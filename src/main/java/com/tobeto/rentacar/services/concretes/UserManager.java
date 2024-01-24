@@ -10,6 +10,10 @@ import com.tobeto.rentacar.services.dtos.responses.user.GetUserListResponse;
 import com.tobeto.rentacar.services.dtos.responses.user.GetUserResponse;
 import com.tobeto.rentacar.services.rules.UserBusinessRules;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +24,9 @@ import java.util.stream.Collectors;
 public class UserManager implements UserService {
 
     private final UserRepository userRepository;
-    private ModelMapperService modelMapperService;
-    private UserBusinessRules userBusinessRules;
+    private final ModelMapperService modelMapperService;
+    private final UserBusinessRules userBusinessRules;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<GetUserListResponse> getAll() {
@@ -44,7 +49,9 @@ public class UserManager implements UserService {
     @Override
     public void add(AddUserRequest addUserRequest) {
         userBusinessRules.checkIfUserEmailExists(addUserRequest.getEmail());
+
         User user=this.modelMapperService.forRequest().map(addUserRequest,User.class);
+        user.setPassword(passwordEncoder.encode(addUserRequest.getPassword()));
         this.userRepository.save(user);
 
     }
@@ -65,5 +72,10 @@ public class UserManager implements UserService {
     @Override
     public boolean existsById(int id) {
         return this.userRepository.existsById(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }
