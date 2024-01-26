@@ -1,22 +1,33 @@
 package com.tobeto.rentacar.controllers;
 
+import com.tobeto.rentacar.core.services.JwtService;
 import com.tobeto.rentacar.services.abstracts.UserService;
+import com.tobeto.rentacar.services.dtos.requests.auth.LoginRequest;
 import com.tobeto.rentacar.services.dtos.requests.user.AddUserRequest;
 import com.tobeto.rentacar.services.dtos.requests.user.UpdateUserRequest;
 import com.tobeto.rentacar.services.dtos.responses.user.GetUserListResponse;
 import com.tobeto.rentacar.services.dtos.responses.user.GetUserResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/users")
 @AllArgsConstructor
 public class UsersController {
-    private UserService userService;
+    private final UserService userService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
+    // TODO: AuthController-AuthManager
+    // TODO: api/auth/login api/auth/register
     @GetMapping()
     public List<GetUserListResponse> getAll(){
         return userService.getAll();
@@ -39,4 +50,19 @@ public class UsersController {
     public void delete(@PathVariable int id){
         this.userService.delete(id);
     }
+
+    @PostMapping("login")
+    public String login(@RequestBody LoginRequest request) {
+        Authentication authentication =
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        if(authentication.isAuthenticated())
+        {
+            // jwt oluştur.
+            Map<String,Object> claims = new HashMap<>();
+            return jwtService.generateToken(request.getEmail(), claims);
+        }
+        throw new RuntimeException("Bilgiler hatalı");
+    }
+
+
 }

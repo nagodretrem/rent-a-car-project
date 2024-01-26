@@ -4,6 +4,7 @@ import com.tobeto.rentacar.core.utilities.mappers.services.ModelMapperService;
 import com.tobeto.rentacar.entities.concretes.User;
 import com.tobeto.rentacar.repositories.UserRepository;
 import com.tobeto.rentacar.services.abstracts.UserService;
+import com.tobeto.rentacar.services.dtos.requests.auth.LoginRequest;
 import com.tobeto.rentacar.services.dtos.requests.user.AddUserRequest;
 import com.tobeto.rentacar.services.dtos.requests.user.UpdateUserRequest;
 import com.tobeto.rentacar.services.dtos.responses.user.GetUserListResponse;
@@ -75,7 +76,12 @@ public class UserManager implements UserService {
     }
 
     @Override
+    public void login(LoginRequest request) {
+
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found!"));
     }
 }

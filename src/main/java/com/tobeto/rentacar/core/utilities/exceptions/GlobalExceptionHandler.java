@@ -1,3 +1,5 @@
+/*
+
 package com.tobeto.rentacar.core.utilities.exceptions;
 
 import org.springframework.http.HttpStatus;
@@ -39,3 +41,7 @@ public class GlobalExceptionHandler
     }
 
 }
+
+
+
+ */

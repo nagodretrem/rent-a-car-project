@@ -1,5 +1,6 @@
 package com.tobeto.rentacar.services.abstracts;
 
+import com.tobeto.rentacar.services.dtos.requests.auth.LoginRequest;
 import com.tobeto.rentacar.services.dtos.requests.user.AddUserRequest;
 import com.tobeto.rentacar.services.dtos.requests.user.UpdateUserRequest;
 import com.tobeto.rentacar.services.dtos.responses.user.GetUserListResponse;
@@ -17,4 +18,6 @@ public interface UserService extends UserDetailsService {
     void delete(int id);
 
     boolean existsById(int id);
+
+    void login(LoginRequest request);
 }
