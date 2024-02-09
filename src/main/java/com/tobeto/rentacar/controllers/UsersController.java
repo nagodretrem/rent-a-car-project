@@ -36,10 +36,6 @@ public class UsersController {
     public GetUserResponse getById(@PathVariable int id){
         return userService.getById(id);
     }
-    @PostMapping()
-    public void add(@RequestBody @Valid AddUserRequest addUserRequest){
-        this.userService.add(addUserRequest);
-    }
 
     @PutMapping()
     public void update(@RequestBody @Valid UpdateUserRequest updateUserRequest){
@@ -51,18 +47,7 @@ public class UsersController {
         this.userService.delete(id);
     }
 
-    @PostMapping("login")
-    public String login(@RequestBody LoginRequest request) {
-        Authentication authentication =
-                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        if(authentication.isAuthenticated())
-        {
-            // jwt oluştur.
-            Map<String,Object> claims = new HashMap<>();
-            return jwtService.generateToken(request.getEmail(), claims);
-        }
-        throw new RuntimeException("Bilgiler hatalı");
-    }
+
 
 
 }

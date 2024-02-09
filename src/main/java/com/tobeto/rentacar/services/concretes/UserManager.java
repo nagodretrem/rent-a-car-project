@@ -26,9 +26,6 @@ public class UserManager implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapperService modelMapperService;
-    private final UserBusinessRules userBusinessRules;
-    private final PasswordEncoder passwordEncoder;
-
     @Override
     public List<GetUserListResponse> getAll() {
         List<User> users = this.userRepository.findAll();
@@ -47,15 +44,6 @@ public class UserManager implements UserService {
         return response;
     }
 
-    @Override
-    public void add(AddUserRequest addUserRequest) {
-        userBusinessRules.checkIfUserEmailExists(addUserRequest.getEmail());
-
-        User user=this.modelMapperService.forRequest().map(addUserRequest,User.class);
-        user.setPassword(passwordEncoder.encode(addUserRequest.getPassword()));
-        this.userRepository.save(user);
-
-    }
 
     @Override
     public void update(UpdateUserRequest updateUserRequest) {
@@ -76,12 +64,15 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public void login(LoginRequest request) {
-
+    public void add(User user) {
+        userRepository.save(user);
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found!"));
     }
+
+
 }

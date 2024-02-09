@@ -1,5 +1,6 @@
 package com.tobeto.rentacar.services.abstracts;
 
+import com.tobeto.rentacar.entities.concretes.User;
 import com.tobeto.rentacar.services.dtos.requests.auth.LoginRequest;
 import com.tobeto.rentacar.services.dtos.requests.user.AddUserRequest;
 import com.tobeto.rentacar.services.dtos.requests.user.UpdateUserRequest;
@@ -13,11 +14,10 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
     List<GetUserListResponse> getAll();
     GetUserResponse getById(int id);
-    void add(AddUserRequest addUserRequest);
     void update(UpdateUserRequest updateUserRequest);
     void delete(int id);
 
     boolean existsById(int id);
 
-    void login(LoginRequest request);
+    void add(User user);
 }
