@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: ${{ secrets.DB_URL }}
+    username: ${{ secrets.DB_USERNAME }}
+    password: ${{ secrets.DB_PASSWORD }}
+  jpa:
+    properties:
+      javax.persistence:
+        validation:
+          mode: auto
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+
+application:
+  security:
+    jwt:
+      secret-key: ${{ secrets.JWT_SECRET_KEY }}
+      expiration: ${{ secrets.JWT_EXPIRATION }}
+
