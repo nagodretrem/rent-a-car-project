@@ -19,5 +19,5 @@ application:
   security:
     jwt:
       secret-key: ${env:JWT_SECRET_KEY}
-      expiration: 86400 ${env:JWT_EXPIRATION}
+      expiration: ${env:JWT_EXPIRATION}
 
