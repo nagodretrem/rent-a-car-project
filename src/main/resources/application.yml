@@ -19,6 +19,6 @@ spring:
 application:
   security:
     jwt:
-      secret-key: ${{ secrets.JWT_SECRET_KEY }}
-      expiration: ${{ secrets.JWT_EXPIRATION }}
+      secret-key: Dmvt126UTH3jdyhmPHHzoy38/CUPjIDoP9bfNJOGLIFowUE/M4G3T3c9K3hJ6Zy6TnmX2ta5tCYn4Le60d/7xy3vQFTj+9OMwU4fqhkbRkNDtdH6KYrqFKbVnjjFmKn1eib5PZFtZy+Stl3kCGRsAq30kCm/6bSy98ASTTjxZ8kT/FFgg28YBLpV3UPqZLADJ/wpiabFVnepNdza09iav5GLSOOSnHdQtJlD/KOHevFEGAsc2E5g85F1oxwNjruHVMphZk4+t/pjSQZThuINCtkR2ekf/A2VitoEig3UGUUqLBnQvHZ5ZHQuYx3dji6UccOIfLMzqP+KuECKQAbnv0i5ad2uwAifINk0MAHUXXM=
+      expiration: 86400
 
