@@ -43,4 +43,4 @@ jobs:
         - name: Delete old container
           run: docker rm -f rent-a-car
         - name: Run container
-          run: docker --env-file .env run -d -p 8080:8080 --name rent-a-car ${{ secrets.DOCKERHUB_USERNAME }}/rent-a-car
+          run: docker run --env-file .env -d -p 8080:8080 --name rent-a-car ${{ secrets.DOCKERHUB_USERNAME }}/rent-a-car:latest
