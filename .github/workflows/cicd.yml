@@ -33,18 +33,17 @@ jobs:
     deploy:
       needs: build
       runs-on: [aws-ec2]
+      env:
+        DATABASE_URL: ${{ secrets.DB_URL }}
+        DATABASE_USERNAME: ${{ secrets.DB_USERNAME }}
+        DATABASE_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+        JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
       steps:
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v1
         - name: Pull image from docker hub
           run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/rent-a-car:latest
-        - name: Define environment variables from secrets
-          env:
-            DATABASE_URL: ${{ secrets.DB_URL }}
-            DATABASE_USERNAME: ${{ secrets.DB_USERNAME }}
-            DATABASE_PASSWORD: ${{ secrets.DB_PASSWORD }}
-            JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
-            JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
         - name: Create application.properties file
           run: |
             echo "spring.datasource.url=$DATABASE_URL" > ./app/application.properties
