@@ -22,7 +22,8 @@ jobs:
         - name: Login to Docker Hub
           run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
         - name: Build docker image
-          run:  docker build \
+          run: |
+              docker build \
               --build-arg DATABASE_URL=${{ secrets.DB_URL }} \
               --build-arg DATABASE_USERNAME=${{ secrets.DB_USERNAME }} \
               --build-arg DATABASE_PASSWORD=${{ secrets.DB_PASSWORD }} \
