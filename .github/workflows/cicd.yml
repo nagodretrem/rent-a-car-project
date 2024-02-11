@@ -36,6 +36,17 @@ jobs:
           uses: docker/setup-buildx-action@v1
         - name: Pull image from docker hub
           run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/rent-a-car:latest
+        - name: Create application.properties
+          run: |
+            echo "spring.datasource.url=${{ secrets.DB_URL }}" > ./app/application.properties
+            echo "spring.datasource.username=${{ secrets.DB_USERNAME }}" >> ./app/application.properties
+            echo "spring.datasource.password=${{ secrets.DB_PASSWORD }}" >> ./app/application.properties
+            echo "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect" >> ./app/application.properties
+            echo "spring.jpa.hibernate.ddl-auto=update" >> ./app/application.properties
+            echo "spring.jpa.properties.javax.persistence.validation.mode=auto" >> ./app/application.properties
+            echo "spring.jpa.hibernate.show-sql=true" >> ./app/application.properties
+            echo "application.security.jwt.secret-key=${{ secrets.JWT_SECRET_KEY }}" >> ./app/application.properties
+            echo "application.security.jwt.expiration=${{ secrets.JWT_EXPIRATION }}" >> ./app/application.properties
         - name: Delete old container
           run: docker rm -f rent-a-car
         - name: Run container
