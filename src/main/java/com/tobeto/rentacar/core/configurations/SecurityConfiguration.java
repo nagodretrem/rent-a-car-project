@@ -33,14 +33,17 @@ public class SecurityConfiguration {
     private final UserService userService;
 
     private static final String[] WHITE_LIST_URLS = {
-            "/swagger-ui/**",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",
-            "/api/auth/**",
-            "/api/users/login",
-            "/api/users/register",
-            "/api/cars/**"
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui/**",
+            "/webjars/**",
+            "/swagger-ui.html",
+            "/api/**"
     };
 
     @Bean
@@ -49,9 +52,6 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((req) -> req
                         .requestMatchers(WHITE_LIST_URLS).permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/users/**").hasAnyAuthority(Role.ADMIN.name())
-                        .requestMatchers(HttpMethod.POST, "/api/brands/**").hasAnyAuthority(Role.MANAGER.name())
-                        .requestMatchers(HttpMethod.GET, "/api/brands/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
