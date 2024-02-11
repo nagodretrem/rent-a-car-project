@@ -9,6 +9,12 @@ on:
 jobs:
     build:
       runs-on: ubuntu-latest
+      env:
+        DATABASE_URL: ${{ secrets.DB_URL }}
+        DATABASE_USERNAME: ${{ secrets.DB_USERNAME }}
+        DATABASE_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+        JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
       steps:
         - name: Checkout source
           uses: actions/checkout@v3
@@ -22,7 +28,15 @@ jobs:
         - name: Login to Docker Hub
           run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
         - name: Build docker image
-          run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/rent-a-car .
+          run: |
+            docker build \
+              --build-arg DATABASE_URL=$DATABASE_URL \
+              --build-arg DATABASE_USERNAME=$DATABASE_USERNAME \
+              --build-arg DATABASE_PASSWORD=$DATABASE_PASSWORD \
+              --build-arg JWT_SECRET_KEY=$JWT_SECRET_KEY \
+              --build-arg JWT_EXPIRATION=$JWT_EXPIRATION \
+              -t {{ secrets.DOCKERHUB_USERNAME }}/rent-a-car
+              .
         - name: Publish image to docker hub
           run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/rent-a-car:latest
 
@@ -33,28 +47,11 @@ jobs:
     deploy:
       needs: build
       runs-on: [aws-ec2]
-      env:
-        DATABASE_URL: ${{ secrets.DB_URL }}
-        DATABASE_USERNAME: ${{ secrets.DB_USERNAME }}
-        DATABASE_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
-        JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
       steps:
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v1
         - name: Pull image from docker hub
           run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/rent-a-car:latest
-        - name: Create application.properties file
-          run: |
-            echo "spring.datasource.url=$DATABASE_URL" > ./app/application.properties
-            echo "spring.datasource.username=$DATABASE_USERNAME" >> ./app/application.properties
-            echo "spring.datasource.password=$DATABASE_PASSWORD" >> ./app/application.properties
-            echo "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect" >> ./app/application.properties
-            echo "spring.jpa.hibernate.ddl-auto=update" >> ./app/application.properties
-            echo "spring.jpa.properties.javax.persistence.validation.mode=auto" >> ./app/application.properties
-            echo "spring.jpa.hibernate.show-sql=true" >> ./app/application.properties
-            echo "application.security.jwt.secret-key=$JWT_SECRET_KEY" >> ./app/application.properties
-            echo "application.security.jwt.expiration=$JWT_EXPIRATION" >> ./app/application.properties
         - name: Delete old container
           run: docker rm -f rent-a-car
         - name: Run container
