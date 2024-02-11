@@ -9,12 +9,6 @@ on:
 jobs:
     build:
       runs-on: ubuntu-latest
-      env:
-        DATABASE_URL: ${{ secrets.DB_URL }}
-        DATABASE_USERNAME: ${{ secrets.DB_USERNAME }}
-        DATABASE_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
-        JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
       steps:
         - name: Checkout source
           uses: actions/checkout@v3
@@ -28,14 +22,13 @@ jobs:
         - name: Login to Docker Hub
           run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
         - name: Build docker image
-          run: |
-            docker build \
-              --build-arg DATABASE_URL=$DATABASE_URL \
-              --build-arg DATABASE_USERNAME=$DATABASE_USERNAME \
-              --build-arg DATABASE_PASSWORD=$DATABASE_PASSWORD \
-              --build-arg JWT_SECRET_KEY=$JWT_SECRET_KEY \
-              --build-arg JWT_EXPIRATION=$JWT_EXPIRATION \
-              -t {{ secrets.DOCKERHUB_USERNAME }}/rent-a-car
+          run:  docker build \
+              --build-arg DATABASE_URL=${{ secrets.DB_URL }} \
+              --build-arg DATABASE_USERNAME=${{ secrets.DB_USERNAME }} \
+              --build-arg DATABASE_PASSWORD=${{ secrets.DB_PASSWORD }} \
+              --build-arg JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
+              --build-arg JWT_EXPIRATION=${{ secrets.JWT_EXPIRATION }} \
+              -t ${{ secrets.DOCKERHUB_USERNAME }}/rent-a-car \
               .
         - name: Publish image to docker hub
           run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/rent-a-car:latest
