@@ -2,6 +2,7 @@ package com.tobeto.rentacar.services.rules;
 
 import com.tobeto.rentacar.core.utilities.exceptions.BusinessException;
 import com.tobeto.rentacar.repositories.ColorRepository;
+import com.tobeto.rentacar.services.constants.Messages;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public class ColorBusinessRules {
 
     public void checkIfColorNameExists(String name){
         if (colorRepository.existsByName(nameStandart(name))){
-            throw new BusinessException("Color name already exists");
+            throw new BusinessException(Messages.COLOR_ALREADY_EXISTS);
         }
     }
 

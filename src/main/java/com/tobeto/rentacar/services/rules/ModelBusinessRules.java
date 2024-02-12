@@ -4,6 +4,7 @@ import com.tobeto.rentacar.core.utilities.exceptions.BusinessException;
 import com.tobeto.rentacar.repositories.BrandRepository;
 import com.tobeto.rentacar.repositories.ModelRepository;
 import com.tobeto.rentacar.services.abstracts.BrandService;
+import com.tobeto.rentacar.services.constants.Messages;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +16,13 @@ public class ModelBusinessRules {
 
     public void checkIfModelNameExists(String name){
         if (modelRepository.existsByName(nameStandart(name))){
-            throw new BusinessException("Model name already exists");
+            throw new BusinessException(Messages.MODEL_ALREADY_EXISTS);
         }
     }
 
     public void checkIfBrandIdNotExists(int id){
         if (!brandService.existsById(id)){
-            throw new BusinessException("BrandId not found");
+            throw new BusinessException(Messages.BRANDID_NOT_EXISTS);
         }
     }
 

@@ -4,6 +4,7 @@ import com.tobeto.rentacar.core.utilities.exceptions.BusinessException;
 import com.tobeto.rentacar.repositories.RentalRepository;
 import com.tobeto.rentacar.services.abstracts.CarService;
 import com.tobeto.rentacar.services.abstracts.CustomerService;
+import com.tobeto.rentacar.services.constants.Messages;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +21,13 @@ public class RentalBusinessRules {
 
     public void  checkIfCarIdNotExists(int id){
         if (!carService.existsById(id)){
-            throw new BusinessException("CarId not found");
+            throw new BusinessException(Messages.CARID_NOT_EXIST);
         }
     }
 
     public void checkIfCustomerIdNotExists(int id){
         if (!customerService.existsById(id)){
-            throw new BusinessException("CustomerId not found");
+            throw new BusinessException(Messages.CUSTOMERID_NOT_EXISTS);
         }
     }
 
@@ -34,18 +35,18 @@ public class RentalBusinessRules {
 
     public void checkIfRentalIdNotExists(int id){
         if (!rentalRepository.existsById(id)){
-            throw new BusinessException("RentalId not found");
+            throw new BusinessException(Messages.RENTALID_NOT_EXISTS);
         }
     }
 
     public void checkIfStartDateAfterBeforeDate(LocalDate startDate,LocalDate endDate){
         if (startDate.isAfter(endDate)){
-            throw new BusinessException("Start date must be before end date");
+            throw new BusinessException(Messages.START_DATE_AFTER_BEFORE_DATE);
         }
     }
     public void checkIfMaxRentalDate(LocalDate startDate,LocalDate endDate){
         if (ChronoUnit.DAYS.between(startDate,endDate) > 25){
-            throw new BusinessException("Rental date must be less than 25 days");
+            throw new BusinessException(Messages.MAX_DAYS_ERROR);
         }
     }
 

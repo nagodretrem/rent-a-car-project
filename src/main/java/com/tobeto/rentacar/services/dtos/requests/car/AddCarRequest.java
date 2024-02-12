@@ -1,9 +1,14 @@
 package com.tobeto.rentacar.services.dtos.requests.car;
 
+import com.tobeto.rentacar.entities.concretes.CarType;
+import com.tobeto.rentacar.entities.concretes.FuelType;
+import com.tobeto.rentacar.entities.concretes.TransmissionType;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -28,6 +33,15 @@ public class AddCarRequest {
 
     @NotNull(message = "Car findeks rate cannot be empty" )
     private short minFindeksRate;
+
+    @NotNull(message = "Car type cannot be empty")
+    private CarType carType;
+
+    @NotNull(message = "Fuel type cannot be empty")
+    private FuelType fuelType;
+
+    @NotNull(message = "Transmission type cannot be empty")
+    private TransmissionType transmissionType;
 
     @NotNull(message = "Car year cannot be empty" )
     @Min(value=2005,message = "Car year can not be less than 2005!")
