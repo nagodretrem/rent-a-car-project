@@ -27,6 +27,8 @@ public class UserManager implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapperService modelMapperService;
+
+    private final UserBusinessRules userBusinessRules;
     @Override
     public List<GetUserListResponse> getAll() {
         List<User> users = this.userRepository.findAll();
@@ -65,8 +67,9 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public void add(User user) {
-        userRepository.save(user);
+    public void add(User user){
+       userBusinessRules.checkIfUserEmailExists(user.getEmail());
+       userRepository.save(user);
     }
 
 
