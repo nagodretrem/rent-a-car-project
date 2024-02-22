@@ -15,8 +15,7 @@ public class UpdateUserRequest {
     private int id;
     @NotBlank(message = "User password cannot be empty!")
     private String password;
-    @NotBlank(message = "User adaress cannot be empty!")
-    private String address;
+
     @NotBlank(message = "User email cannot be empty!")
     @Email(message = "User email must be a valid email address.")
     private String email;

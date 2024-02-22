@@ -28,14 +28,9 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "address")
-    private String address;
 
     @OneToMany(mappedBy = "user")
     private List<Customer> customers;
-
-    @OneToMany(mappedBy = "user")
-    private List<CorporateCustomer> corporateCustomers;
 
     @Column(name = "roles")
     @Enumerated(EnumType.STRING)

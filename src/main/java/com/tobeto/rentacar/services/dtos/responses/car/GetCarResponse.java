@@ -1,5 +1,8 @@
 package com.tobeto.rentacar.services.dtos.responses.car;
 
+import com.tobeto.rentacar.entities.concretes.CarType;
+import com.tobeto.rentacar.entities.concretes.FuelType;
+import com.tobeto.rentacar.entities.concretes.TransmissionType;
 import com.tobeto.rentacar.services.dtos.responses.color.GetColorResponse;
 import com.tobeto.rentacar.services.dtos.responses.model.GetModelResponse;
 import lombok.AllArgsConstructor;
@@ -15,6 +18,9 @@ public class GetCarResponse {
     private float dailyPrice;
     private short modelYear;
     private short minFindeksRate;
+    private CarType carType;
+    private FuelType fuelType;
+    private TransmissionType transmissionType;
     private String imagePath;
     private GetModelResponse model_id;
     private GetColorResponse color_id;

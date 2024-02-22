@@ -1,6 +1,7 @@
 package com.tobeto.rentacar.services.concretes;
 
 import com.tobeto.rentacar.core.services.JwtService;
+import com.tobeto.rentacar.entities.concretes.Role;
 import com.tobeto.rentacar.entities.concretes.User;
 import com.tobeto.rentacar.services.abstracts.AuthService;
 import com.tobeto.rentacar.services.abstracts.UserService;
@@ -13,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,10 +31,9 @@ public class AuthManager implements AuthService {
 
         User user = User.builder()
                 .email(addUserRequest.getEmail())
-                .authorities(addUserRequest.getRoles())
                 .password(passwordEncoder.encode(addUserRequest.getPassword()))
                 .build();
-
+        user.setAuthorities(Arrays.asList(Role.valueOf("USER")));
         userService.add(user);
     }
 

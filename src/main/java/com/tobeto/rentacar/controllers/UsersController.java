@@ -5,6 +5,7 @@ import com.tobeto.rentacar.services.abstracts.UserService;
 import com.tobeto.rentacar.services.dtos.requests.auth.LoginRequest;
 import com.tobeto.rentacar.services.dtos.requests.user.AddUserRequest;
 import com.tobeto.rentacar.services.dtos.requests.user.UpdateUserRequest;
+import com.tobeto.rentacar.services.dtos.responses.user.GetUserIdResponse;
 import com.tobeto.rentacar.services.dtos.responses.user.GetUserListResponse;
 import com.tobeto.rentacar.services.dtos.responses.user.GetUserResponse;
 import jakarta.validation.Valid;
@@ -26,8 +27,6 @@ public class UsersController {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
-    // TODO: AuthController-AuthManager
-    // TODO: api/auth/login api/auth/register
     @GetMapping()
     public List<GetUserListResponse> getAll(){
         return userService.getAll();
@@ -35,6 +34,11 @@ public class UsersController {
     @GetMapping({"/{id}"})
     public GetUserResponse getById(@PathVariable int id){
         return userService.getById(id);
+    }
+
+    @GetMapping({"email/{email}"})
+    public GetUserIdResponse getByEmail(@PathVariable String email){
+        return userService.getByEmail(email);
     }
 
     @PutMapping()

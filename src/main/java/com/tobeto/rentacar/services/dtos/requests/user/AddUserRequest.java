@@ -17,12 +17,13 @@ import java.util.List;
 @Builder
 public class AddUserRequest {
 
-    @NotBlank(message = "User password cannot be empty!")
-    private String password;
     @NotBlank(message = "User email cannot be empty!")
     @Email(message = "User email must be a valid email address.")
     private String email;
+    @NotBlank(message = "User password cannot be empty!")
+    private String password;
 
 
-    private List<Role> roles;
+
+
 }

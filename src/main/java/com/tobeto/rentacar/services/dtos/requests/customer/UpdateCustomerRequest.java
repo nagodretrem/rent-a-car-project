@@ -30,6 +30,9 @@ public class UpdateCustomerRequest {
     @NotBlank(message = "Customer last name cannot be empty!")
     private String lastName;
 
+    @NotBlank(message = "User adaress cannot be empty!")
+    private String address;
+
     @Pattern(regexp = "05\\d{9}", message = "Gsm must be a valid number. Like 05xxxxxxxxx")
     private String gsm;
     @NotNull

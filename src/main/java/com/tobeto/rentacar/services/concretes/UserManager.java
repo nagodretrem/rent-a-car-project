@@ -8,6 +8,7 @@ import com.tobeto.rentacar.services.constants.Messages;
 import com.tobeto.rentacar.services.dtos.requests.auth.LoginRequest;
 import com.tobeto.rentacar.services.dtos.requests.user.AddUserRequest;
 import com.tobeto.rentacar.services.dtos.requests.user.UpdateUserRequest;
+import com.tobeto.rentacar.services.dtos.responses.user.GetUserIdResponse;
 import com.tobeto.rentacar.services.dtos.responses.user.GetUserListResponse;
 import com.tobeto.rentacar.services.dtos.responses.user.GetUserResponse;
 import com.tobeto.rentacar.services.rules.UserBusinessRules;
@@ -43,6 +44,15 @@ public class UserManager implements UserService {
         User user = this.userRepository.findById(id).orElseThrow();
         GetUserResponse response = this.modelMapperService.forResponse()
                 .map(user, GetUserResponse.class);
+
+        return response;
+    }
+
+    @Override
+    public GetUserIdResponse getByEmail(String email) {
+        User user = this.userRepository.findByEmail(email).orElseThrow();
+        GetUserIdResponse response = this.modelMapperService.forResponse()
+                .map(user, GetUserIdResponse.class);
 
         return response;
     }
