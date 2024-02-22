@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,7 @@ public class AuthManager implements AuthService {
                 .build();
         user.setAuthorities(Arrays.asList(Role.valueOf("USER")));
         userService.add(user);
+
     }
 
     @Override
@@ -45,8 +47,17 @@ public class AuthManager implements AuthService {
                         loginRequest.getPassword()));
         if(authentication.isAuthenticated())
         {
+
+
+
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             // jwt oluştur.
             Map<String,Object> claims = new HashMap<>();
+            claims.put("role", userDetails.getAuthorities());
+            claims.put("id",userService.getByEmail(loginRequest.getEmail()).getId());
+
+
+
             return jwtService.generateToken(loginRequest.getEmail(), claims);
         }
         throw new RuntimeException("Bilgiler hatalı");

@@ -5,8 +5,6 @@ import com.tobeto.rentacar.entities.concretes.User;
 import com.tobeto.rentacar.repositories.UserRepository;
 import com.tobeto.rentacar.services.abstracts.UserService;
 import com.tobeto.rentacar.services.constants.Messages;
-import com.tobeto.rentacar.services.dtos.requests.auth.LoginRequest;
-import com.tobeto.rentacar.services.dtos.requests.user.AddUserRequest;
 import com.tobeto.rentacar.services.dtos.requests.user.UpdateUserRequest;
 import com.tobeto.rentacar.services.dtos.responses.user.GetUserIdResponse;
 import com.tobeto.rentacar.services.dtos.responses.user.GetUserListResponse;
@@ -15,8 +13,6 @@ import com.tobeto.rentacar.services.rules.UserBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,6 +52,7 @@ public class UserManager implements UserService {
 
         return response;
     }
+
 
 
     @Override

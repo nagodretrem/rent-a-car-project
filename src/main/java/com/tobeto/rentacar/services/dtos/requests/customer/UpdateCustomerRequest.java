@@ -17,9 +17,11 @@ public class UpdateCustomerRequest {
     @NotNull(message = "Customer id cannot be empty!")
     @Positive(message = "Customer id must be a positive number.")
     private int id;
-    @NotNull(message = "Employee userId cannot be empty!")
-    @Positive(message = "Employee userId must be a positive number.")
+
+    @NotNull(message = "User id cannot be empty!")
+    @Positive(message = "User id must be a positive number.")
     private int userId;
+
     @NotBlank(message = "Customer nationalityId cannot be empty!")
     @Pattern(regexp = "\\d{11}", message = "NationalityId must be a 11-digit number.")
     private String nationalityId;
@@ -30,7 +32,7 @@ public class UpdateCustomerRequest {
     @NotBlank(message = "Customer last name cannot be empty!")
     private String lastName;
 
-    @NotBlank(message = "User adaress cannot be empty!")
+    @NotBlank(message = "Customer adaress cannot be empty!")
     private String address;
 
     @Pattern(regexp = "05\\d{9}", message = "Gsm must be a valid number. Like 05xxxxxxxxx")

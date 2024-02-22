@@ -18,8 +18,9 @@ import java.time.LocalDate;
 public class AddCustomerRequest {
 
 
-    @NotNull(message = "Employee userId cannot be empty!")
-    @Positive(message = "Employee userId must be a positive number.")
+
+    @NotNull(message = "User id cannot be empty!")
+    @Positive(message = "User id must be a positive number.")
     private int userId;
     @NotBlank(message = "Customer nationalityId cannot be empty!")
     @Pattern(regexp = "\\d{11}", message = "NationalityId must be a 11-digit number.")
@@ -31,7 +32,7 @@ public class AddCustomerRequest {
     @NotBlank(message = "Customer last name cannot be empty!")
     private String lastName;
 
-    @NotBlank(message = "User adaress cannot be empty!")
+    @NotBlank(message = "Customer adaress cannot be empty!")
     private String address;
 
     @NotBlank(message = "Customer gsm cannot be empty!")
