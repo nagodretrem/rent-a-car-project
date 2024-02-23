@@ -1,5 +1,6 @@
 package com.tobeto.rentacar.services.dtos.responses.car;
 
+import com.tobeto.rentacar.entities.concretes.Available;
 import com.tobeto.rentacar.entities.concretes.CarType;
 import com.tobeto.rentacar.entities.concretes.FuelType;
 import com.tobeto.rentacar.entities.concretes.TransmissionType;
@@ -25,6 +26,7 @@ public class GetCarListResponse {
     private CarType carType;
     private FuelType fuelType;
     private TransmissionType transmissionType;
+    private Available available;
     private String imagePath;
     private GetModelResponse model_id;
     private GetColorResponse color_id;

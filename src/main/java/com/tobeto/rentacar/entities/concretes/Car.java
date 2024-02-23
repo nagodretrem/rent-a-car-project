@@ -45,6 +45,11 @@ public class Car extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private FuelType fuelType;
 
+    @Column (name = "available")
+    @Enumerated(EnumType.STRING)
+    private Available available;
+
+
     @Column (name = "transmission_type")
     @Enumerated(EnumType.STRING)
     private TransmissionType transmissionType;

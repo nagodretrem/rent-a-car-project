@@ -1,5 +1,6 @@
 package com.tobeto.rentacar.services.dtos.requests.car;
 
+import com.tobeto.rentacar.entities.concretes.Available;
 import com.tobeto.rentacar.entities.concretes.CarType;
 import com.tobeto.rentacar.entities.concretes.FuelType;
 import com.tobeto.rentacar.entities.concretes.TransmissionType;
@@ -42,6 +43,9 @@ public class AddCarRequest {
 
     @NotNull(message = "Transmission type cannot be empty")
     private TransmissionType transmissionType;
+
+    @NotNull(message = "Car available cannot be empty")
+    private Available available;
 
     @NotNull(message = "Car year cannot be empty" )
     @Min(value=2005,message = "Car year can not be less than 2005!")
