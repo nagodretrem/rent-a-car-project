@@ -14,6 +14,8 @@ public class GetCustomerListResponse {
 
     private int id;
 
+    private String nationalityId;
+
     private String firstName;
 
     private String lastName;
@@ -22,7 +24,7 @@ public class GetCustomerListResponse {
 
     private LocalDate birthDate;
 
-    private String nationalityId;
+    private String address;
 
     private GetUserResponse userResponse;
 }

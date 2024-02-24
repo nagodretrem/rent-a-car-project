@@ -40,12 +40,11 @@ public class RentalManager implements RentalService {
         Rental rental = this.rentalRepository.findById(id).orElseThrow();
         GetRentalResponse response = this.modelMapperService.forResponse()
                 .map(rental, GetRentalResponse.class);
-
         return response;
     }
 
     @Override
-    public void add(AddRentalRequest addRentalRequest) {
+    public Rental add(AddRentalRequest addRentalRequest) {
         rentalBusinessRules.checkIfCarIdNotExists(addRentalRequest.getCarId());
         rentalBusinessRules.checkIfCustomerIdNotExists(addRentalRequest.getUserId());
         rentalBusinessRules.checkIfStartDateAfterBeforeDate(addRentalRequest.getStartDate(),addRentalRequest.getEndDate());
@@ -56,6 +55,9 @@ public class RentalManager implements RentalService {
         Rental rental=this.modelMapperService.forRequest().map(addRentalRequest,Rental.class);
 
         this.rentalRepository.save(rental);
+
+
+        return rental;
     }
 
     @Override
@@ -69,6 +71,8 @@ public class RentalManager implements RentalService {
         Rental rental=this.modelMapperService.forRequest().map(updateRentalRequest,Rental.class);
 
         this.rentalRepository.save(rental);
+
+
     }
 
     @Override

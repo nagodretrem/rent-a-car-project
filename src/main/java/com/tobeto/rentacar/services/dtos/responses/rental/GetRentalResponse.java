@@ -30,4 +30,6 @@ public class GetRentalResponse {
 
     private GetUserResponse getUserResponse;
 
+
+
 }

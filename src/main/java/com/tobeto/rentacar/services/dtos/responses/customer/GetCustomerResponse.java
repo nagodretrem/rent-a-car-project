@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class GetCustomerResponse {
 
+    private String nationalityId;
+
     private String firstName;
 
     private String lastName;
@@ -20,7 +22,7 @@ public class GetCustomerResponse {
 
     private LocalDate birthDate;
 
-    private String nationalityId;
+    private String address;
 
     private GetUserResponse getUserResponse;
 }
