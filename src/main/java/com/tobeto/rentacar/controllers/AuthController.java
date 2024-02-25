@@ -1,5 +1,6 @@
 package com.tobeto.rentacar.controllers;
 
+import com.tobeto.rentacar.entities.concretes.User;
 import com.tobeto.rentacar.services.abstracts.AuthService;
 import com.tobeto.rentacar.services.dtos.requests.auth.LoginRequest;
 import com.tobeto.rentacar.services.dtos.requests.user.AddUserRequest;
@@ -26,8 +27,11 @@ public class AuthController {
 
     @PostMapping("register")
     @ResponseStatus(HttpStatus.CREATED)
-    public void register(@RequestBody AddUserRequest request) {
-        authService.register(request);
+    public int register(@RequestBody AddUserRequest request) {
+
+        User user = authService.register(request);
+
+        return user.getId();
     }
 
 }

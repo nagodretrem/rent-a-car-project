@@ -36,10 +36,6 @@ public class UsersController {
         return userService.getById(id);
     }
 
-    @GetMapping({"email/{email}"})
-    public GetUserIdResponse getByEmail(@PathVariable String email){
-        return userService.getByEmail(email);
-    }
 
     @PutMapping()
     public void update(@RequestBody @Valid UpdateUserRequest updateUserRequest){

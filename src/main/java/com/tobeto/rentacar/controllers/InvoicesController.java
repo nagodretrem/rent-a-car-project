@@ -25,6 +25,12 @@ public class InvoicesController {
     public GetInvoiceResponse getById(@PathVariable int id){
         return invoiceService.getById(id);
     }
+
+    @GetMapping({"/profile/{ownerUser}"})
+    public GetInvoiceResponse getByUserId(@PathVariable int ownerUser){
+        return invoiceService.getByOwnerUser(ownerUser);
+    }
+
     @PostMapping()
     public void add(@RequestBody @Valid AddInvoiceRequest addInvoiceRequest){
         this.invoiceService.add(addInvoiceRequest);

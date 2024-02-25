@@ -32,6 +32,15 @@ public class InvoiceManager implements InvoiceService {
     }
 
     @Override
+    public GetInvoiceResponse getByOwnerUser(int ownerUser) {
+        Invoice invoice=this.invoiceRepository.findByOwnerUser(ownerUser).orElseThrow();
+        GetInvoiceResponse response=this.modelMapperService.forResponse()
+                .map(invoice,GetInvoiceResponse.class);
+
+        return response;
+    }
+
+    @Override
     public GetInvoiceResponse getById(int id) {
         Invoice invoice=this.invoiceRepository.findById(id).orElseThrow();
         GetInvoiceResponse response=this.modelMapperService.forResponse()

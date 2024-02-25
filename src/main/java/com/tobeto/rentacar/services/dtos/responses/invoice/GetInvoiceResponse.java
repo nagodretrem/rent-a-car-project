@@ -10,9 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GetInvoiceResponse {
     private int id;
-    private String invoiceNo;
 
-    private int taxRate;
+    private int ownerUser;
 
     private short discountRate;
 

@@ -42,11 +42,12 @@ public class CustomerManager implements CustomerService {
     }
 
     @Override
-    public void add(AddCustomerRequest addCustomerRequest) {
+    public Customer add(AddCustomerRequest addCustomerRequest) {
         customerBusinessRules.checkIfUserIdNotExists(addCustomerRequest.getUserId());
         customerBusinessRules.checkIfCustomerNationalityIdExists(addCustomerRequest.getNationalityId());
         Customer customer=this.modelMapperService.forRequest().map(addCustomerRequest,Customer.class);
         this.customerRepository.save(customer);
+        return customer;
     }
 
     @Override

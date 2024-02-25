@@ -10,6 +10,8 @@ import java.util.List;
 public interface InvoiceService {
     List<GetInvoiceListResponse> getAll();
     GetInvoiceResponse getById(int id);
+
+    GetInvoiceResponse getByOwnerUser(int ownerUser);
     void add(AddInvoiceRequest addInvoiceRequest);
     void update(UpdateInvoiceRequest updateInvoiceRequest);
 

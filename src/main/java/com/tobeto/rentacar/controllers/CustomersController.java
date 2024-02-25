@@ -1,5 +1,6 @@
 package com.tobeto.rentacar.controllers;
 
+import com.tobeto.rentacar.entities.concretes.Customer;
 import com.tobeto.rentacar.services.abstracts.CustomerService;
 import com.tobeto.rentacar.services.dtos.requests.customer.AddCustomerRequest;
 import com.tobeto.rentacar.services.dtos.requests.customer.UpdateCustomerRequest;
@@ -26,8 +27,10 @@ public class CustomersController {
         return customerService.getById(id);
     }
     @PostMapping()
-    public void add(@RequestBody @Valid AddCustomerRequest addCustomerRequest){
-        this.customerService.add(addCustomerRequest);
+    public int add(@RequestBody @Valid AddCustomerRequest addCustomerRequest){
+        Customer customer = this.customerService.add(addCustomerRequest);
+
+        return customer.getId();
     }
 
     @PutMapping()

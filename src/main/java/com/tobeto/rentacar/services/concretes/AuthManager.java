@@ -28,7 +28,7 @@ public class AuthManager implements AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     @Override
-    public void register(AddUserRequest addUserRequest) {
+    public User register(AddUserRequest addUserRequest) {
 
         User user = User.builder()
                 .email(addUserRequest.getEmail())
@@ -37,6 +37,7 @@ public class AuthManager implements AuthService {
         user.setAuthorities(Arrays.asList(Role.valueOf("USER")));
         userService.add(user);
 
+        return user;
     }
 
     @Override

@@ -15,9 +15,8 @@ import lombok.NoArgsConstructor;
 public class GetInvoiceListResponse {
 
     private int id;
-    private String invoiceNo;
 
-    private int taxRate;
+    private int ownerUser;
 
     private short discountRate;
 

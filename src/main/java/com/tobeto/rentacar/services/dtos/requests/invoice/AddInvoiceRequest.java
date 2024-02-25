@@ -10,11 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddInvoiceRequest {
-    @NotBlank(message = "Invoice no name cannot be empty!")
-    private String invoiceNo;
 
-    @NotNull(message = "Invoice tax rate cannot be empty!")
-    private int taxRate;
+    @NotNull(message = "Invoice owner user cannot be empty!")
+    private int ownerUser;
+
 
     @NotNull(message = "Invoice discount rate cannot be empty!")
     private short discountRate;

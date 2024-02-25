@@ -14,17 +14,15 @@ import lombok.NoArgsConstructor;
 
 public class Invoice extends BaseEntity
 {
-    @Column(name = "invoice_no")
-    private String invoiceNo;
-
-    @Column(name = "tax_rate")
-    private int taxRate;
 
     @Column(name = "discount_rate")
     private short discountRate;
 
     @Column(name = "total_price")
     private float totalPrice;
+
+    @Column(name = "owner_user")
+    private int ownerUser;
 
     @ManyToOne()
     @JoinColumn(name = "rental_id")

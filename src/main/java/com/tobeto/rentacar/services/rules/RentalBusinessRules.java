@@ -50,15 +50,6 @@ public class RentalBusinessRules {
         }
     }
 
-    public double calculateTotalPrice(double dailyPrice, double discount, LocalDate startDate, LocalDate endDate) {
-        double totalPrice = 0;
-        if (discount > 0 && discount < 100) {
-            totalPrice = (endDate.toEpochDay() - startDate.toEpochDay()) * dailyPrice * (1 - (discount / 100));
-        } else {
-            totalPrice = (endDate.toEpochDay() - startDate.toEpochDay()) * dailyPrice;
-        }
-        return totalPrice;
 
-    }
 
 }
