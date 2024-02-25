@@ -14,6 +14,7 @@ public class Messages {
     public static final String GET = "Entity listed!";
 
     //###   USERS
+    public static final String USERID_NOT_EXISTS = "The user id does not exists!";
     public static final String USER_NOT_FOUND = "User not found!";
     public static final String UID_NOT_FOUND = "User id not found!";
     public static final String UNID_NOT_FOUND = "User nationality id not found!";

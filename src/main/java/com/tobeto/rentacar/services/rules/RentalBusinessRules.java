@@ -3,7 +3,7 @@ package com.tobeto.rentacar.services.rules;
 import com.tobeto.rentacar.core.utilities.exceptions.BusinessException;
 import com.tobeto.rentacar.repositories.RentalRepository;
 import com.tobeto.rentacar.services.abstracts.CarService;
-import com.tobeto.rentacar.services.abstracts.CustomerService;
+import com.tobeto.rentacar.services.abstracts.UserService;
 import com.tobeto.rentacar.services.constants.Messages;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class RentalBusinessRules {
 
     private RentalRepository rentalRepository;
     private CarService carService;
-    private CustomerService customerService;
+    private UserService userService;
 
     public void  checkIfCarIdNotExists(int id){
         if (!carService.existsById(id)){
@@ -25,9 +25,9 @@ public class RentalBusinessRules {
         }
     }
 
-    public void checkIfCustomerIdNotExists(int id){
-        if (!customerService.existsById(id)){
-            throw new BusinessException(Messages.CUSTOMERID_NOT_EXISTS);
+    public void checkIfUserIdNotExists(int id){
+        if (!userService.existsById(id)){
+            throw new BusinessException(Messages.USERID_NOT_EXISTS);
         }
     }
 
