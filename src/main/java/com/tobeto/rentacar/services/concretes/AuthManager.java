@@ -58,7 +58,7 @@ public class AuthManager implements AuthService {
             Map<String,Object> claims = new HashMap<>();
             claims.put("role", userDetails.getAuthorities());
             claims.put("id",userService.getByEmail(loginRequest.getEmail()).getId());
-            claims.put("customerId", customerService.getById(userService.getByEmail(loginRequest.getEmail()).getId()).getId());
+            claims.put("customerId", customerService.getCustomerIdByUserId(userService.getByEmail(loginRequest.getEmail()).getId()).getId());
 
 
             return jwtService.generateToken(loginRequest.getEmail(), claims);

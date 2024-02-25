@@ -7,4 +7,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     boolean existsById(int id);
 
     boolean existsByNationalityId(String nationality);
+
+    Customer getCustomerByUserId(int userId);
 }

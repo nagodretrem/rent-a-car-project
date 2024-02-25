@@ -6,6 +6,7 @@ import com.tobeto.rentacar.repositories.CustomerRepository;
 import com.tobeto.rentacar.services.abstracts.CustomerService;
 import com.tobeto.rentacar.services.dtos.requests.customer.AddCustomerRequest;
 import com.tobeto.rentacar.services.dtos.requests.customer.UpdateCustomerRequest;
+import com.tobeto.rentacar.services.dtos.responses.customer.GetCustomerIdResponse;
 import com.tobeto.rentacar.services.dtos.responses.customer.GetCustomerListResponse;
 import com.tobeto.rentacar.services.dtos.responses.customer.GetCustomerResponse;
 import com.tobeto.rentacar.services.rules.CustomerBusinessRules;
@@ -39,6 +40,16 @@ public class CustomerManager implements CustomerService {
                 .map(customer, GetCustomerResponse.class);
 
         return response;
+    }
+
+    @Override
+    public GetCustomerIdResponse getCustomerIdByUserId(int userId) {
+
+        Customer customer = this.customerRepository.getCustomerByUserId(userId);
+        GetCustomerIdResponse response = this.modelMapperService.forResponse()
+                .map(customer, GetCustomerIdResponse.class);
+        return response;
+
     }
 
     @Override
