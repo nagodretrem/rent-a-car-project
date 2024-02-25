@@ -4,6 +4,7 @@ import com.tobeto.rentacar.core.services.JwtService;
 import com.tobeto.rentacar.entities.concretes.Role;
 import com.tobeto.rentacar.entities.concretes.User;
 import com.tobeto.rentacar.services.abstracts.AuthService;
+import com.tobeto.rentacar.services.abstracts.CustomerService;
 import com.tobeto.rentacar.services.abstracts.UserService;
 import com.tobeto.rentacar.services.dtos.requests.auth.LoginRequest;
 import com.tobeto.rentacar.services.dtos.requests.user.AddUserRequest;
@@ -25,6 +26,7 @@ import java.util.Map;
 public class AuthManager implements AuthService {
     private  final PasswordEncoder passwordEncoder;
     private final UserService userService;
+    private final CustomerService customerService;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     @Override
@@ -56,7 +58,7 @@ public class AuthManager implements AuthService {
             Map<String,Object> claims = new HashMap<>();
             claims.put("role", userDetails.getAuthorities());
             claims.put("id",userService.getByEmail(loginRequest.getEmail()).getId());
-
+            claims.put("customerId", customerService.getById(userService.getByEmail(loginRequest.getEmail()).getId()).getId());
 
 
             return jwtService.generateToken(loginRequest.getEmail(), claims);
