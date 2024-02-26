@@ -1,6 +1,7 @@
 package com.tobeto.rentacar.services.concretes;
 
 import com.tobeto.rentacar.core.utilities.mappers.services.ModelMapperService;
+import com.tobeto.rentacar.entities.concretes.Available;
 import com.tobeto.rentacar.entities.concretes.Car;
 import com.tobeto.rentacar.entities.concretes.Rental;
 import com.tobeto.rentacar.repositories.CarRepository;
@@ -50,7 +51,8 @@ public class RentalManager implements RentalService {
         rentalBusinessRules.checkIfStartDateAfterBeforeDate(addRentalRequest.getStartDate(),addRentalRequest.getEndDate());
         rentalBusinessRules.checkIfMaxRentalDate(addRentalRequest.getStartDate(),addRentalRequest.getEndDate());
         Car car = this.carRepository.findById(addRentalRequest.getCarId()).orElseThrow();
-
+            car.setAvailable(Available.NO);
+            this.carRepository.save(car);
 
         Rental rental=this.modelMapperService.forRequest().map(addRentalRequest,Rental.class);
 
