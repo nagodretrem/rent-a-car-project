@@ -27,7 +27,7 @@ public class InvoicesController {
     }
 
     @GetMapping({"/profile/{ownerUser}"})
-    public GetInvoiceResponse getByUserId(@PathVariable int ownerUser){
+    public GetInvoiceResponse getByOwnerUser(@PathVariable int ownerUser){
         return invoiceService.getByOwnerUser(ownerUser);
     }
 
