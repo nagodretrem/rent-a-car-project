@@ -11,7 +11,7 @@ public interface InvoiceService {
     List<GetInvoiceListResponse> getAll();
     GetInvoiceResponse getById(int id);
 
-    GetInvoiceResponse getByOwnerUser(int ownerUser);
+    List<GetInvoiceListResponse> getByOwnerUser(int ownerUser);
     void add(AddInvoiceRequest addInvoiceRequest);
     void update(UpdateInvoiceRequest updateInvoiceRequest);
 

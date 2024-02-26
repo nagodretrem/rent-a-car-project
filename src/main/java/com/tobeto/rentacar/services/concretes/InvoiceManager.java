@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,10 +33,12 @@ public class InvoiceManager implements InvoiceService {
     }
 
     @Override
-    public GetInvoiceResponse getByOwnerUser(int ownerUser) {
-        Invoice invoice=this.invoiceRepository.findByOwnerUser(ownerUser).orElseThrow();
-        GetInvoiceResponse response=this.modelMapperService.forResponse()
-                .map(invoice,GetInvoiceResponse.class);
+    public List<GetInvoiceListResponse> getByOwnerUser(int ownerUser) {
+
+        List<Invoice> invoices=this.invoiceRepository.findByOwnerUser(ownerUser);
+        List<GetInvoiceListResponse> response=invoices.stream()
+                .map(invoice->this.modelMapperService.forResponse()
+                        .map(invoice, GetInvoiceListResponse.class)).collect(Collectors.toList());
 
         return response;
     }
